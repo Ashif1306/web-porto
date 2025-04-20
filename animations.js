@@ -241,125 +241,154 @@ document.addEventListener('DOMContentLoaded', function() {
     // ===== ANIMASI UNTUK HALAMAN ABOUT =====
     // Cek jika berada di halaman About
     const isAboutPage = window.location.pathname.includes('about.html') || document.querySelector('.intro-gallery');
+    const isMobile = window.innerWidth < 768;
     
     if (isAboutPage) {
-        // Animasi untuk galeri intro
-        const galleryItems = document.querySelectorAll('.gallery-item');
-        const profileImage = document.querySelector('.gallery-item.profile img');
-        
-        if (galleryItems.length > 0) {
-            const galleryObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const item = entry.target;
+        // Animasi untuk galeri intro - khusus desktop
+        if (!isMobile) {
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            const profileImage = document.querySelector('.gallery-item.profile img');
+            
+            if (galleryItems.length > 0) {
+                const galleryObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const item = entry.target;
+                            const index = Array.from(galleryItems).indexOf(item);
+                            
+                            // Reset status animasi
+                            item.style.opacity = '0';
+                            
+                            // Pilih animasi berbeda berdasarkan posisi
+                            if (item.classList.contains('profile')) {
+                                item.style.transform = 'scale(0.8)';
+                            } else if (index % 2 === 0) {
+                                item.style.transform = 'translateX(-30px)';
+                            } else {
+                                item.style.transform = 'translateX(30px)';
+                            }
+                            
+                            // Animasikan dengan delay
+                            setTimeout(() => {
+                                item.style.opacity = '1';
+                                item.style.transform = 'none';
+                            }, 200 * index);
+                        }
+                    });
+                }, { threshold: 0.2 });
+                
+                galleryItems.forEach(item => {
+                    // Siapkan status awal
+                    item.style.opacity = '0';
+                    
+                    if (item.classList.contains('profile')) {
+                        item.style.transform = 'scale(0.8)';
+                    } else {
                         const index = Array.from(galleryItems).indexOf(item);
-                        
-                        // Reset status animasi
-                        item.style.opacity = '0';
-                        
-                        // Pilih animasi berbeda berdasarkan posisi
-                        if (item.classList.contains('profile')) {
-                            item.style.transform = 'scale(0.8)';
-                        } else if (index % 2 === 0) {
+                        if (index % 2 === 0) {
                             item.style.transform = 'translateX(-30px)';
                         } else {
                             item.style.transform = 'translateX(30px)';
                         }
-                        
-                        // Animasikan dengan delay
-                        setTimeout(() => {
-                            item.style.opacity = '1';
-                            item.style.transform = 'none';
-                        }, 200 * index);
                     }
+                    
+                    item.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                    
+                    // Mulai observasi
+                    galleryObserver.observe(item);
                 });
-            }, { threshold: 0.2 });
-            
+            }
+        } else {
+            // Pada mobile, hanya fade in untuk gallery items
+            const galleryItems = document.querySelectorAll('.gallery-item');
             galleryItems.forEach(item => {
-                // Siapkan status awal
                 item.style.opacity = '0';
+                item.style.transition = 'opacity 0.8s ease';
                 
-                if (item.classList.contains('profile')) {
-                    item.style.transform = 'scale(0.8)';
-                } else {
-                    const index = Array.from(galleryItems).indexOf(item);
-                    if (index % 2 === 0) {
-                        item.style.transform = 'translateX(-30px)';
-                    } else {
-                        item.style.transform = 'translateX(30px)';
-                    }
-                }
+                const observer = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.opacity = '1';
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.2 });
                 
-                item.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-                
-                // Mulai observasi
-                galleryObserver.observe(item);
+                observer.observe(item);
             });
         }
         
-        // Animasi untuk section Education (masuk bersamaan dari kanan)
-        const educationSection = document.querySelector('.education');
-        if (educationSection) {
-            const educationObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        // Reset status animasi
-                        entry.target.style.opacity = '0';
-                        entry.target.style.transform = 'translateX(50px)';
-                        
-                        // Force reflow
-                        void entry.target.offsetWidth;
-                        
-                        // Animasikan seluruh section
-                        setTimeout(() => {
+        // Animasi untuk section Education dan Work berdasarkan device
+        if (!isMobile) {
+            // Desktop: Animasi geser dari sisi
+            // Education (dari kanan)
+            const educationSection = document.querySelector('.education');
+            if (educationSection) {
+                const educationObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            // Animasikan seluruh section
+                            setTimeout(() => {
+                                entry.target.style.opacity = '1';
+                                entry.target.style.transform = 'translateX(0)';
+                            }, 200);
+                        }
+                    });
+                }, { threshold: 0.2 });
+                
+                // Siapkan animasi untuk education section
+                educationSection.style.opacity = '0';
+                educationSection.style.transform = 'translateX(50px)';
+                educationSection.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                
+                // Mulai observasi
+                educationObserver.observe(educationSection);
+            }
+            
+            // Work Experience (dari kiri)
+            const workSection = document.querySelector('.work');
+            if (workSection) {
+                const workObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            // Animasikan seluruh section
+                            setTimeout(() => {
+                                entry.target.style.opacity = '1';
+                                entry.target.style.transform = 'translateX(0)';
+                            }, 200);
+                        }
+                    });
+                }, { threshold: 0.2 });
+                
+                // Siapkan animasi untuk work section
+                workSection.style.opacity = '0';
+                workSection.style.transform = 'translateX(-50px)';
+                workSection.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                
+                // Mulai observasi
+                workObserver.observe(workSection);
+            }
+        } else {
+            // Mobile: Hanya fade in
+            const sections = document.querySelectorAll('.education, .work');
+            sections.forEach(section => {
+                section.style.opacity = '0';
+                section.style.transition = 'opacity 0.8s ease';
+                
+                const observer = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
                             entry.target.style.opacity = '1';
-                            entry.target.style.transform = 'translateX(0)';
-                        }, 1000);
-                    }
-                });
-            }, { threshold: 0.2 });
-            
-            // Siapkan animasi untuk education section
-            educationSection.style.opacity = '0';
-            educationSection.style.transform = 'translateX(50px)';
-            educationSection.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-            
-            // Mulai observasi
-            educationObserver.observe(educationSection);
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.2 });
+                
+                observer.observe(section);
+            });
         }
         
-        // Animasi untuk section Work Experience (masuk bersamaan dari kiri)
-        const workSection = document.querySelector('.work');
-        if (workSection) {
-            const workObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        // Reset status animasi
-                        entry.target.style.opacity = '0';
-                        entry.target.style.transform = 'translateX(-50px)';
-                        
-                        // Force reflow
-                        void entry.target.offsetWidth;
-                        
-                        // Animasikan seluruh section
-                        setTimeout(() => {
-                            entry.target.style.opacity = '1';
-                            entry.target.style.transform = 'translateX(0)';
-                        }, 800);
-                    }
-                });
-            }, { threshold: 0.2 });
-            
-            // Siapkan animasi untuk work section
-            workSection.style.opacity = '0';
-            workSection.style.transform = 'translateX(-50px)';
-            workSection.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-            
-            // Mulai observasi
-            workObserver.observe(workSection);
-        }
-        
-        // Animasi untuk foto di bagian follow-me
+        // Animasi untuk bagian follow-me berdasarkan device
         const followImage = document.querySelector('.follow-image img');
         const followContent = document.querySelector('.follow-content');
         
@@ -367,26 +396,33 @@ document.addEventListener('DOMContentLoaded', function() {
             const followObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        // Reset status animasi
-                        entry.target.style.opacity = '0';
-                        entry.target.style.transform = 'scale(0.9)';
-                        
-                        // Force reflow
-                        void entry.target.offsetWidth;
-                        
-                        // Animasikan elemen
-                        setTimeout(() => {
+                        if (!isMobile) {
+                            // Desktop: animasi zoom
+                            entry.target.style.opacity = '0';
+                            entry.target.style.transform = 'scale(0.9)';
+                            
+                            // Force reflow
+                            void entry.target.offsetWidth;
+                            
+                            // Animasikan elemen
+                            setTimeout(() => {
+                                entry.target.style.opacity = '1';
+                                entry.target.style.transform = 'scale(1)';
+                            }, 200);
+                        } else {
+                            // Mobile: hanya fade in
                             entry.target.style.opacity = '1';
-                            entry.target.style.transform = 'scale(1)';
-                        }, 200);
+                        }
                     }
                 });
             }, { threshold: 0.2 });
             
             // Siapkan status awal
             followImage.style.opacity = '0';
-            followImage.style.transform = 'scale(0.9)';
-            followImage.style.transition = 'opacity 1s ease, transform 1s ease';
+            if (!isMobile) {
+                followImage.style.transform = 'scale(0.9)';
+            }
+            followImage.style.transition = 'opacity 1s ease' + (!isMobile ? ', transform 1s ease' : '');
             
             // Mulai observasi
             followObserver.observe(followImage);
@@ -396,26 +432,33 @@ document.addEventListener('DOMContentLoaded', function() {
             const contentObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        // Reset status animasi
-                        entry.target.style.opacity = '0';
-                        entry.target.style.transform = 'translateX(30px)';
-                        
-                        // Force reflow
-                        void entry.target.offsetWidth;
-                        
-                        // Animasikan elemen
-                        setTimeout(() => {
+                        if (!isMobile) {
+                            // Desktop: animasi geser
+                            entry.target.style.opacity = '0';
+                            entry.target.style.transform = 'translateX(30px)';
+                            
+                            // Force reflow
+                            void entry.target.offsetWidth;
+                            
+                            // Animasikan elemen
+                            setTimeout(() => {
+                                entry.target.style.opacity = '1';
+                                entry.target.style.transform = 'translateX(0)';
+                            }, 500);
+                        } else {
+                            // Mobile: hanya fade in
                             entry.target.style.opacity = '1';
-                            entry.target.style.transform = 'translateX(0)';
-                        }, 500);
+                        }
                     }
                 });
             }, { threshold: 0.2 });
             
             // Siapkan status awal
             followContent.style.opacity = '0';
-            followContent.style.transform = 'translateX(30px)';
-            followContent.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            if (!isMobile) {
+                followContent.style.transform = 'translateX(30px)';
+            }
+            followContent.style.transition = 'opacity 0.8s ease' + (!isMobile ? ', transform 0.8s ease' : '');
             
             // Mulai observasi
             contentObserver.observe(followContent);
