@@ -496,7 +496,7 @@ footer {
 }
 
 /* Media Queries for Responsiveness */
-@media (max-width: 992px) {
+@media (max-width: 768px) {
     nav ul {
         display: none;
     }
@@ -617,7 +617,7 @@ footer {
 }
 
 /* Specific adjustment to align text with hand and button with waist */
-@media (min-width: 993px) {
+@media (min-width: 768px) {
     .intro-text {
         padding-top: 80px; /* Adjusts text to align with hand level */
     }
