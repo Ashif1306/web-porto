@@ -1,0 +1,352 @@
+/* Import font Poppins untuk konsistensi di semua halaman */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Variabel untuk konsistensi font dan warna */
+:root {
+    /* Font family */
+    --font-primary: 'Poppins', sans-serif;
+    
+    /* Font sizes */
+    --font-size-small: 0.9rem;
+    --font-size-regular: 1rem;
+    --font-size-medium: 1.2rem;
+    --font-size-large: 1.8rem;
+    --font-size-xlarge: 2.5rem;
+    --font-size-xxlarge: 3.5rem;
+    
+    /* Font weights */
+    --font-weight-light: 300;
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    
+    /* Line heights */
+    --line-height-tight: 1.2;
+    --line-height-normal: 1.6;
+    --line-height-loose: 1.8;
+    
+    /* Colors (dari CSS yang sudah ada) */
+    --primary-color: #B16CEA;
+    --secondary-color: #FF5E69;
+    --tertiary-color: #FF8A56;
+    --quaternary-color: #FFA84B;
+    --dark-color: #333;
+    --light-color: #f4f4f4;
+    --text-color: #333;
+    --highlight-pink: #FF5E69;
+    --light-gray: #f8f9fa;
+    --medium-gray: #6c757d;
+    
+    /* Header dimensions */
+    --header-height: 80px;
+    
+    /* Animation speeds */
+    --transition-speed: 0.3s;
+}
+
+/* Reset umum */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Mengatur konsistensi font pada seluruh website */
+body {
+    font-family: var(--font-primary);
+    font-size: var(--font-size-regular);
+    line-height: var(--line-height-normal);
+    color: var(--text-color);
+    background-color: #f8f9fa;
+    overflow-x: hidden; /* Mencegah horizontal scrollbar saat animasi */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-primary);
+    line-height: var(--line-height-tight);
+    font-weight: var(--font-weight-bold);
+}
+
+/* Animasi halaman untuk transisi */
+.page-transition-out {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity var(--transition-speed) ease, transform var(--transition-speed) ease;
+}
+
+.page-transition-in {
+    animation: slideInFromTop var(--transition-speed) ease forwards;
+}
+
+.page-loaded {
+    opacity: 0;
+    animation: fadeIn var(--transition-speed) ease forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromTop {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Header styles base */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    height: var(--header-height);
+    width: 100%;
+    z-index: 1000;
+}
+
+/* Fixed header style - header tetap di posisi */
+header.fixed-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Logo */
+.logo {
+    height: auto;
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 30px;
+    width: auto;
+}
+
+/* Navigasi */
+nav {
+    display: flex;
+    align-items: center;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    position: relative;
+    font-weight: 500;
+    font-size: var(--font-size-small);
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--transition-speed) ease;
+}
+
+nav ul li a.active,
+nav ul li a:hover {
+    color: var(--primary-color);
+}
+
+nav ul li a.active::after,
+nav ul li a:hover::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: var(--primary-color);
+    bottom: -5px;
+    left: 0;
+    transition: width var(--transition-speed) ease;
+}
+
+/* Animasi hover untuk link */
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    bottom: -5px;
+    left: 0;
+    transition: width var(--transition-speed) ease;
+}
+
+nav ul li a:hover::after {
+    width: 100%;
+}
+
+/* Button Styles */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: 500;
+    transition: all var(--transition-speed) ease;
+    text-align: center;
+    font-size: var(--font-size-small);
+}
+
+.btn-dark {
+    background-color: #222;
+    color: white;
+}
+
+.btn-dark:hover {
+    background-color: var(--highlight-pink);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.cta-button {
+    display: flex;
+    align-items: center;
+}
+
+.cta-button a {
+    transition: all var(--transition-speed) ease;
+}
+
+.cta-button a:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Styles untuk Menu Mobile (Hamburger) */
+.mobile-menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 24px;
+    cursor: pointer;
+    z-index: 1001;
+    position: relative;
+}
+
+.bar1, .bar2, .bar3 {
+    height: 3px;
+    width: 100%;
+    background-color: var(--dark-color);
+    border-radius: 2px;
+    transition: all var(--transition-speed) ease;
+}
+
+.mobile-menu-toggle.active .bar1 {
+    transform: translateY(10px) rotate(45deg);
+}
+
+.mobile-menu-toggle.active .bar2 {
+    opacity: 0;
+}
+
+.mobile-menu-toggle.active .bar3 {
+    transform: translateY(-10px) rotate(-45deg);
+}
+
+/* Mencegah scrolling ketika menu mobile terbuka */
+body.menu-open {
+    overflow: hidden;
+}
+
+/* Media queries untuk responsivitas mobile */
+@media (max-width: 992px) {
+    /* Menampilkan tombol hamburger */
+    .mobile-menu-toggle {
+        display: flex;
+    }
+    
+    /* Mengatur posisi navigasi mobile */
+    nav {
+        position: fixed;
+        top: -100%; /* Mulai dari luar viewport (atas) */
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: white;
+        z-index: 999;
+        padding: 80px 20px 20px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: top var(--transition-speed) ease; /* Animasi dari atas ke bawah selama 0.3 detik */
+        overflow-y: auto;
+        display: block; /* Ubah dari flex ke block untuk mengatur konten */
+    }
+    
+    /* Navigasi aktif ketika tombol hamburger diklik */
+    nav.active {
+        top: 0; /* Turun ke posisi atas */
+    }
+    
+    /* Mengatur tampilan menu vertikal untuk mobile */
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        padding: 0;
+    }
+    
+    nav ul li {
+        margin: 15px 0;
+        width: 100%;
+        text-align: center;
+    }
+    
+    nav ul li a {
+        display: block;
+        width: 100%;
+        padding: 10px 0;
+        font-size: 1.1rem;
+    }
+    
+    /* Menyesuaikan indikator active untuk mobile */
+    nav ul li a.active::after,
+    nav ul li a:hover::after {
+        width: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    nav ul li a::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    /* Menyesuaikan ukuran font untuk responsive */
+    :root {
+        --font-size-xxlarge: 2.8rem;
+        --font-size-xlarge: 2.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Menyesuaikan ukuran font untuk layar kecil */
+    :root {
+        --font-size-xxlarge: 2.2rem;
+        --font-size-xlarge: 1.8rem;
+        --font-size-large: 1.5rem;
+    }
+    
+    /* Menyembunyikan tombol CTA pada tampilan mobile terkecil */
+    .cta-button {
+        display: none;
+    }
+}

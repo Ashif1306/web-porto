@@ -494,3 +494,14 @@ footer {
         margin-top: 30px;
     }
 }
+/* Perbaikan jarak antara navbar dan judul halaman */
+body {
+    padding-top: 80px; /* Sesuaikan dengan tinggi header */
+}
+
+/* Pengaturan untuk halaman About */
+.section-title {
+    margin-top: 0;
+    padding-top: 10px;
+}
+
