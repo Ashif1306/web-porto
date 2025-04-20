@@ -131,18 +131,19 @@ nav ul li a:hover::after {
 
 /* Services Hero Section */
 .services-hero {
-    padding: 70px 5% 30px;
+    padding: 40px 5% 10px; /* Mengurangi padding dari 70px 5% 30px menjadi 40px 5% 10px */
 }
 
 .services-header {
     max-width: 1200px;
     margin: 0 auto;
+    margin-bottom: 20px; /* Mengurangi margin bottom dari default menjadi 20px */
 }
 
 .services-header h1 {
     font-size: 3.5rem;
     font-weight: 700;
-    margin-bottom: 20px;
+    margin-bottom: 5px; /* Mengurangi margin bottom dari 20px menjadi 10px */
 }
 
 /* Service Item Section */
@@ -150,7 +151,7 @@ nav ul li a:hover::after {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 70px 5%;
+    padding: 10px 5%; /* Mengurangi padding dari 70px 5% menjadi 40px 5% */
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -261,7 +262,7 @@ footer {
     
     .service-item {
         flex-direction: column;
-        padding: 50px 5%;
+        padding: 30px 5%; /* Mengurangi padding dari 50px 5% menjadi 30px 5% */
     }
     
     .service-item.reverse {
@@ -296,6 +297,10 @@ footer {
     
     .service-content h2 {
         font-size: 1.8rem;
+    }
+    
+    .services-hero {
+        padding: 30px 5% 0; /* Mengurangi padding lagi untuk mobile */
     }
     
     .footer-top {
@@ -334,7 +339,7 @@ footer {
     
     /* Align text with hand level */
     .service-content h2 {
-        padding-top: 40px;
+        padding-top: 30px; /* Mengurangi padding top dari 40px menjadi 30px */
     }
     
     /* Align button with waist level */

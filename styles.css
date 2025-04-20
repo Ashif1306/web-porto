@@ -17,6 +17,15 @@
     padding: 0;
     box-sizing: border-box;
 }
+/* Gradient Text Effect */
+.gradient-text {
+    background: linear-gradient(to right, #B16CEA, #FF5E69, #FF8A56, #FFA84B);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-fill-color: transparent;
+    display: inline-block;
+}
 
 body {
     font-family: 'Poppins', sans-serif;
@@ -654,6 +663,14 @@ footer {
     .skills-icons {
         justify-content: center;
     }
+    
+    /* Ini adalah style baru untuk memusatkan kata "Hello" pada mobile */
+    .hero-text h1 .gradient-text:first-of-type {
+        display: block;
+        text-align: center;
+        width: 100%;
+        margin-bottom: 5px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -746,6 +763,12 @@ footer {
     .hero-buttons {
         margin-top: 40px; /* Reduced from 100px to 40px to bring buttons closer to text */
     }
+    
+    /* Style untuk desktop - memastikan teks Hello tidak dipengaruhi oleh style mobile */
+    .hero-text h1 .gradient-text:first-of-type {
+        display: inline-block;
+        text-align: left;
+    }
 }
 
 .about-me {
@@ -832,3 +855,39 @@ footer {
     font-weight: 700;
     color: #000;
 }
+
+/* Gradient Text Effect */
+.gradient-text {
+  background: linear-gradient(to right, #B16CEA, #FF5E69, #FF8A56, #FFA84B);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+  display: inline-block;
+}
+/* Mengurangi jarak antara Hello dan I'm Ashif */
+.hero-text h1 {
+    line-height: 1.1; /* Mengurangi line-height untuk merapatkan baris */
+  }
+  
+  /* Jika menggunakan <br>, tambahkan style ini */
+  .hero-text h1 br {
+    margin-bottom: 5px; /* Mengurangi margin antar baris */
+    display: block;
+    content: "";
+  }
+  
+  /* Animasi hover untuk tombol VIEW ALL WORKS */
+  .btn-outline:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-color: #aaa;
+    color: var(--primary-color);
+  }
+  
+  /* Jika tombol VIEW ALL WORKS memiliki class spesifik */
+  .hero-buttons a:nth-child(2):hover,
+  a[href*="works"]:hover {
+    background: #1C1C22;
+    border: none;
+    color: white;
+  }
