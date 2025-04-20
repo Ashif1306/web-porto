@@ -20,6 +20,22 @@ document.addEventListener('DOMContentLoaded', function() {
     const nav = document.querySelector('nav');
     header.insertBefore(mobileMenuToggle, nav);
     
+    // Mendapatkan tombol CTA untuk diduplikasi di menu mobile
+    const ctaButton = document.querySelector('.cta-button');
+    let mobileCta = null;
+    
+    if (ctaButton) {
+        // Duplikasi tombol CTA untuk menu mobile
+        mobileCta = document.createElement('div');
+        mobileCta.className = 'mobile-cta';
+        mobileCta.innerHTML = ctaButton.innerHTML;
+        
+        // Pastikan ada link di dalam nav sebelum menambahkan mobileCta
+        if (nav.querySelector('ul')) {
+            nav.appendChild(mobileCta);
+        }
+    }
+    
     // Menambahkan event listener ke tombol menu mobile
     mobileMenuToggle.addEventListener('click', function() {
         this.classList.toggle('active');
@@ -60,7 +76,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Menangani animasi saat perpindahan halaman untuk semua link navigasi (termasuk Let's Talk)
-    document.querySelectorAll('nav ul li a, .cta-button a, a[href="contact.html"]').forEach(link => {
+    const allLinks = document.querySelectorAll('nav ul li a, .cta-button a, a[href="contact.html"], .mobile-cta a');
+    allLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             const href = this.getAttribute('href');
             

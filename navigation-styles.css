@@ -109,7 +109,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 5%;
+    padding: 15px 5%;
     background-color: white;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     height: var(--header-height);
@@ -231,6 +231,30 @@ nav ul li a:hover::after {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
+/* Mobile CTA button di menu mobile */
+.mobile-cta {
+    margin-top: 30px;
+    text-align: center;
+    display: none;
+}
+
+.mobile-cta a {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #222;
+    color: white;
+    border-radius: 30px;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.mobile-cta a:hover {
+    background-color: var(--highlight-pink);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
 /* Styles untuk Menu Mobile (Hamburger) */
 .mobile-menu-toggle {
     display: none;
@@ -275,25 +299,33 @@ body.menu-open {
         display: flex;
     }
     
+    /* Menampilkan tombol CTA di menu mobile */
+    .mobile-cta {
+        display: block;
+    }
+    
     /* Mengatur posisi navigasi mobile */
     nav {
         position: fixed;
-        top: -100%; /* Mulai dari luar viewport (atas) */
-        left: 0;
+        top: 0;
+        right: -100%;
         width: 100%;
         height: 100vh;
         background-color: white;
         z-index: 999;
-        padding: 80px 20px 20px;
+        padding: 80px 20px 30px;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        transition: top var(--transition-speed) ease; /* Animasi dari atas ke bawah selama 0.3 detik */
+        transition: right var(--transition-speed) ease; /* Animasi dari kanan ke kiri */
         overflow-y: auto;
-        display: block; /* Ubah dari flex ke block untuk mengatur konten */
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
     }
     
     /* Navigasi aktif ketika tombol hamburger diklik */
     nav.active {
-        top: 0; /* Turun ke posisi atas */
+        right: 0;
     }
     
     /* Mengatur tampilan menu vertikal untuk mobile */
@@ -302,6 +334,7 @@ body.menu-open {
         align-items: center;
         width: 100%;
         padding: 0;
+        margin-bottom: 20px;
     }
     
     nav ul li {
@@ -335,6 +368,11 @@ body.menu-open {
         --font-size-xxlarge: 2.8rem;
         --font-size-xlarge: 2.2rem;
     }
+    
+    /* Menyembunyikan tombol CTA di header pada tampilan mobile */
+    header .cta-button {
+        display: none;
+    }
 }
 
 @media (max-width: 768px) {
@@ -345,8 +383,15 @@ body.menu-open {
         --font-size-large: 1.5rem;
     }
     
-    /* Menyembunyikan tombol CTA pada tampilan mobile terkecil */
-    .cta-button {
-        display: none;
+    /* Menyesuaikan header */
+    header {
+        padding: 10px 5%;
+        height: auto;
+        min-height: 60px;
+    }
+    
+    /* Menyesuaikan padding body */
+    body.has-sticky-header {
+        padding-top: 60px;
     }
 }
