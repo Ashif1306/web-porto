@@ -518,8 +518,12 @@ footer {
     }
     
     .footer-links {
-        flex-direction: column;
-        gap: 10px;
+        display: flex;
+        gap: 16px;
+        list-style: none;
+        padding: 0;
+        justify-content: center; /* agar di tengah */
+        flex-wrap: wrap;
     }
     
     .footer-bottom {
