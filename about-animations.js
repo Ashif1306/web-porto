@@ -195,6 +195,72 @@ document.addEventListener('DOMContentLoaded', function() {
     // Panggil fungsi ini untuk memulai animasi section
     initSectionAnimations();
 
+    // Function untuk menghapus class animate saat elemen keluar dari viewport
+    function setupRemoveAnimationOnExit() {
+        const animatedElements = document.querySelectorAll('.intro-left, .intro-right, .gallery-item, .timeline-item, .stat-item, .section-title, .follow-me-container');
+        
+        // Observer untuk menghapus class animate saat elemen keluar dari viewport
+        const exitObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) {
+                    // Hapus class animate saat elemen keluar dari viewport
+                    entry.target.classList.remove('animate');
+                }
+            });
+        }, {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        });
+        
+        // Amati semua elemen yang memiliki animasi
+        animatedElements.forEach(element => {
+            exitObserver.observe(element);
+        });
+    }
+    
+    // Panggil fungsi untuk setup reset animasi
+    setupRemoveAnimationOnExit();
+    
+    // Fungsi untuk memperbaiki masalah tata letak mobile
+    function fixMobileLayout() {
+        // Cek jika ini adalah perangkat mobile
+        if (window.innerWidth <= 768) {
+            // Perbaiki tata letak intro section
+            const introSection = document.querySelector('.intro');
+            if (introSection) {
+                // Memastikan padding yang konsisten
+                introSection.style.paddingLeft = '15px';
+                introSection.style.paddingRight = '15px';
+            }
+            
+            // Perbaiki semua paragraf agar tidak melebihi lebar
+            const paragraphs = document.querySelectorAll('p');
+            paragraphs.forEach(p => {
+                p.style.maxWidth = '100%';
+                p.style.overflowWrap = 'break-word';
+                p.style.wordWrap = 'break-word';
+            });
+            
+            // Perbaiki judul
+            const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+            headings.forEach(heading => {
+                heading.style.maxWidth = '100%';
+                heading.style.overflowWrap = 'break-word';
+                heading.style.wordWrap = 'break-word';
+            });
+        }
+    }
+    
+    // Panggil fungsi perbaikan layout saat halaman dimuat
+    fixMobileLayout();
+    
+    // Panggil ulang saat resize window
+    window.addEventListener('resize', fixMobileLayout);
+    
+    // Add necessary CSS for animations
+    addAnimationStyles();
+
     // Helper function to animate counting
     function animateCounter(element, start, end, duration) {
         let startTimestamp = null;
@@ -217,9 +283,6 @@ document.addEventListener('DOMContentLoaded', function() {
         window.requestAnimationFrame(step);
     }
 
-    // Add necessary CSS for animations
-    addAnimationStyles();
-
     // Add CSS styles for animations
     function addAnimationStyles() {
         const style = document.createElement('style');
@@ -232,6 +295,9 @@ document.addEventListener('DOMContentLoaded', function() {
             /* Intro section animations */
             .intro-left, .intro-right {
                 transition: opacity 0.8s ease, transform 0.8s ease;
+                max-width: 100%; /* Membatasi lebar maksimum */
+                word-wrap: break-word; /* Memastikan teks tidak melebar */
+                overflow-wrap: break-word; /* Alternatif untuk browser lain */
             }
             
             .intro-left.animate, .intro-right.animate {
@@ -323,6 +389,38 @@ document.addEventListener('DOMContentLoaded', function() {
                 .education .timeline-item.animate, 
                 .work .timeline-item.animate {
                     transform: translateY(0) !important;
+                }
+                
+                /* Fix for mobile overflow issues */
+                body, html {
+                    overflow-x: hidden; /* Prevent horizontal scroll */
+                    width: 100%;
+                    max-width: 100%;
+                }
+                
+                .intro-content, .intro-left, .intro-right, p {
+                    max-width: 100%;
+                    box-sizing: border-box;
+                    word-wrap: break-word;
+                    overflow-wrap: break-word;
+                }
+                
+                h1, h2, h3 {
+                    word-wrap: break-word;
+                    overflow-wrap: break-word;
+                    max-width: 100%;
+                }
+                
+                /* Memperbaiki lebar konten */
+                .intro {
+                    padding-left: 15px;
+                    padding-right: 15px;
+                    box-sizing: border-box;
+                }
+                
+                .intro-content {
+                    width: 100%;
+                    padding: 0;
                 }
             }
         `;
