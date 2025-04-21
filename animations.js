@@ -299,23 +299,37 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
         } else {
-            // Pada mobile, hanya fade in untuk gallery items
+            // Pada mobile, gunakan animasi yang lebih aman
             const galleryItems = document.querySelectorAll('.gallery-item');
-            galleryItems.forEach(item => {
-                item.style.opacity = '0';
-                item.style.transition = 'opacity 0.8s ease';
-                
-                const observer = new IntersectionObserver(entries => {
+            
+            if (galleryItems.length > 0) {
+                const galleryObserver = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
-                            entry.target.style.opacity = '1';
-                            observer.unobserve(entry.target);
+                            const item = entry.target;
+                            const index = Array.from(galleryItems).indexOf(item);
+                            
+                            // Animasikan dengan delay
+                            setTimeout(() => {
+                                item.style.opacity = '1';
+                                item.style.transform = 'translateY(0)';
+                            }, 150 * index);
+                            
+                            galleryObserver.unobserve(item);
                         }
                     });
                 }, { threshold: 0.2 });
                 
-                observer.observe(item);
-            });
+                galleryItems.forEach((item, index) => {
+                    // Siapkan status awal - animasi slide up ringan untuk mobile
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateY(20px)'; // Nilai lebih kecil untuk mobile
+                    item.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                    
+                    // Mulai observasi
+                    galleryObserver.observe(item);
+                });
+            }
         }
         
         // Animasi untuk section Education dan Work berdasarkan device
@@ -369,23 +383,90 @@ document.addEventListener('DOMContentLoaded', function() {
                 workObserver.observe(workSection);
             }
         } else {
-            // Mobile: Hanya fade in
-            const sections = document.querySelectorAll('.education, .work');
-            sections.forEach(section => {
-                section.style.opacity = '0';
-                section.style.transition = 'opacity 0.8s ease';
+            // Mobile: Gunakan approach yang sama dengan desktop
+            const educationSection = document.querySelector('.education');
+            if (educationSection) {
+                // Hapus animasi default
+                educationSection.style.animation = 'none';
                 
-                const observer = new IntersectionObserver(entries => {
+                // Class untuk animasi dari kanan
+                const animateRightClass = 'animate-from-right-mobile';
+                
+                // Tambahkan style untuk animasi dari samping layar (nilai lebih kecil untuk mobile)
+                if (!document.querySelector('#animation-styles-education-mobile')) {
+                    const styleElement = document.createElement('style');
+                    styleElement.id = 'animation-styles-education-mobile';
+                    styleElement.innerHTML = `
+                        @keyframes slideFromRightMobile {
+                            from { opacity: 0; transform: translateX(70%); }
+                            to { opacity: 1; transform: translateX(0); }
+                        }
+                        .animate-from-right-mobile {
+                            animation: slideFromRightMobile 0.8s ease-out forwards;
+                        }
+                    `;
+                    document.head.appendChild(styleElement);
+                }
+                
+                const educationObserver = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
-                            entry.target.style.opacity = '1';
-                            observer.unobserve(entry.target);
+                            // Hapus class animasi untuk reset
+                            entry.target.classList.remove(animateRightClass);
+                            
+                            // Force reflow agar animasi bisa dijalankan lagi
+                            void entry.target.offsetWidth;
+                            
+                            // Tambahkan class untuk trigger animasi
+                            entry.target.classList.add(animateRightClass);
                         }
                     });
-                }, { threshold: 0.2 });
+                }, { threshold: 0.15 });
                 
-                observer.observe(section);
-            });
+                educationObserver.observe(educationSection);
+            }
+            
+            const workSection = document.querySelector('.work');
+            if (workSection) {
+                // Hapus animasi default
+                workSection.style.animation = 'none';
+                
+                // Class untuk animasi dari kiri
+                const animateLeftClass = 'animate-from-left-mobile';
+                
+                // Tambahkan style untuk animasi dari samping layar (nilai lebih kecil untuk mobile)
+                if (!document.querySelector('#animation-styles-work-mobile')) {
+                    const styleElement = document.createElement('style');
+                    styleElement.id = 'animation-styles-work-mobile';
+                    styleElement.innerHTML = `
+                        @keyframes slideFromLeftMobile {
+                            from { opacity: 0; transform: translateX(-70%); }
+                            to { opacity: 1; transform: translateX(0); }
+                        }
+                        .animate-from-left-mobile {
+                            animation: slideFromLeftMobile 0.8s ease-out forwards;
+                        }
+                    `;
+                    document.head.appendChild(styleElement);
+                }
+                
+                const workObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            // Hapus class animasi untuk reset
+                            entry.target.classList.remove(animateLeftClass);
+                            
+                            // Force reflow agar animasi bisa dijalankan lagi
+                            void entry.target.offsetWidth;
+                            
+                            // Tambahkan class untuk trigger animasi
+                            entry.target.classList.add(animateLeftClass);
+                        }
+                    });
+                }, { threshold: 0.15 });
+                
+                workObserver.observe(workSection);
+            }
         }
         
         // Animasi untuk bagian follow-me berdasarkan device
@@ -398,31 +479,26 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (entry.isIntersecting) {
                         if (!isMobile) {
                             // Desktop: animasi zoom
-                            entry.target.style.opacity = '0';
-                            entry.target.style.transform = 'scale(0.9)';
-                            
-                            // Force reflow
-                            void entry.target.offsetWidth;
-                            
-                            // Animasikan elemen
                             setTimeout(() => {
                                 entry.target.style.opacity = '1';
                                 entry.target.style.transform = 'scale(1)';
                             }, 200);
                         } else {
-                            // Mobile: hanya fade in
-                            entry.target.style.opacity = '1';
+                            // Mobile: animasi zoom ringan yang aman
+                            setTimeout(() => {
+                                entry.target.style.opacity = '1';
+                                entry.target.style.transform = 'scale(1)';
+                            }, 200);
                         }
+                        followObserver.unobserve(entry.target);
                     }
                 });
             }, { threshold: 0.2 });
             
             // Siapkan status awal
             followImage.style.opacity = '0';
-            if (!isMobile) {
-                followImage.style.transform = 'scale(0.9)';
-            }
-            followImage.style.transition = 'opacity 1s ease' + (!isMobile ? ', transform 1s ease' : '');
+            followImage.style.transform = isMobile ? 'scale(0.95)' : 'scale(0.9)'; // Nilai lebih kecil untuk mobile
+            followImage.style.transition = 'opacity 1s ease, transform 1s ease';
             
             // Mulai observasi
             followObserver.observe(followImage);
@@ -433,22 +509,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         if (!isMobile) {
-                            // Desktop: animasi geser
-                            entry.target.style.opacity = '0';
-                            entry.target.style.transform = 'translateX(30px)';
-                            
-                            // Force reflow
-                            void entry.target.offsetWidth;
-                            
-                            // Animasikan elemen
+                            // Desktop: animasi geser dari samping
                             setTimeout(() => {
                                 entry.target.style.opacity = '1';
                                 entry.target.style.transform = 'translateX(0)';
                             }, 500);
                         } else {
-                            // Mobile: hanya fade in
-                            entry.target.style.opacity = '1';
+                            // Mobile: animasi geser dari bawah
+                            setTimeout(() => {
+                                entry.target.style.opacity = '1';
+                                entry.target.style.transform = 'translateY(0)';
+                            }, 500);
                         }
+                        contentObserver.unobserve(entry.target);
                     }
                 });
             }, { threshold: 0.2 });
@@ -457,8 +530,10 @@ document.addEventListener('DOMContentLoaded', function() {
             followContent.style.opacity = '0';
             if (!isMobile) {
                 followContent.style.transform = 'translateX(30px)';
+            } else {
+                followContent.style.transform = 'translateY(15px)'; // Geser ke atas untuk mobile
             }
-            followContent.style.transition = 'opacity 0.8s ease' + (!isMobile ? ', transform 0.8s ease' : '');
+            followContent.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
             
             // Mulai observasi
             contentObserver.observe(followContent);
