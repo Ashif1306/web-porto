@@ -212,11 +212,22 @@ body.has-fixed-header {
     gap: 15px;
     align-items: center;
     margin-top: 20px; /* Added this line */
+    display: inline-block;
+    margin: 0 0.5rem;
+
+    animation: bounce; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 2s; /* don't forget to set a duration! */
+    
 }
 
 .hero-image {
     width: 40%;
     text-align: center;
+    display: inline-block;
+    margin: 0 0.5rem;
+
+    animation: bouncezoomInRight; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 2s; /* don't forget to set a duration! */
 }
 
 .hero-image img {
@@ -224,6 +235,11 @@ body.has-fixed-header {
     border-radius: 5px;
     background-color: var(--dark-color);
     padding: 5px;
+    display: inline-block;
+    margin: 0 0.5rem;
+
+    animation: backInRight; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 3s; /* don't forget to set a duration! */
 }
 
 /* Skills Banner */
@@ -535,12 +551,16 @@ body.has-fixed-header {
     }
 }
 
-.cta {
+.animate__animated {
     padding: 100px 5%;
     text-align: left;
-}
+    display: inline-block;
+    margin: 0 0.5rem;  
+    animation: jackInTheBox; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 10s; /* don't forget to set a duration! */
+      }
 
-.cta h2 {
+.animate__animated h2 {
     font-size: 50px;
     line-height: 1.2;
     max-width: 1300px;
