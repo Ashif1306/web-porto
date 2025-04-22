@@ -1,0 +1,209 @@
+/* Gaya untuk Pop-up Artikel */
+.artikel-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.3s, opacity 0.3s;
+}
+
+.artikel-popup.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.artikel-popup-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1001;
+}
+
+.artikel-popup-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    width: 90%;
+    max-width: 1000px;
+    max-height: 90vh;
+    background-color: white;
+    border-radius: 10px;
+    padding: 40px;
+    overflow-y: auto;
+    z-index: 1002;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.artikel-popup.active .artikel-popup-content {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.artikel-popup-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f1f1f1;
+    border: none;
+    font-size: 24px;
+    line-height: 40px;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.artikel-popup-close:hover {
+    background-color: var(--highlight-pink);
+    color: white;
+    transform: rotate(90deg);
+}
+
+.artikel-popup-header {
+    margin-bottom: 30px;
+}
+
+.artikel-popup-categories {
+    margin-bottom: 15px;
+}
+
+.artikel-popup-title {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: #333;
+    line-height: 1.2;
+}
+
+.artikel-popup-author {
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+.artikel-popup-image {
+    margin-bottom: 30px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.artikel-popup-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.artikel-popup-text {
+    color: #444;
+    line-height: 1.7;
+}
+
+.artikel-popup-text h3 {
+    font-size: 1.8rem;
+    margin: 40px 0 20px;
+    color: #333;
+}
+
+.artikel-popup-text p {
+    margin-bottom: 20px;
+    font-size: 1.05rem;
+}
+
+/* Animasi saat pop-up muncul dan menghilang */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translate(-50%, -70%) scale(0.8); opacity: 0; }
+    to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+.artikel-popup.active .artikel-popup-overlay {
+    animation: fadeIn 0.3s forwards;
+}
+
+.artikel-popup.active .artikel-popup-content {
+    animation: slideIn 0.5s forwards;
+}
+
+/* Gaya untuk kategori artikel dalam pop-up */
+.artikel-popup .category {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-right: 10px;
+    color: white;
+}
+
+.artikel-popup .category.dark {
+    background-color: var(--category-dark, #333);
+}
+
+.artikel-popup .category.green {
+    background-color: var(--category-green, #28a745);
+}
+
+.artikel-popup .category.blue {
+    background-color: var(--category-blue, #0275d8);
+}
+
+.artikel-popup .category.purple {
+    background-color: var(--category-purple, #9b59b6);
+}
+
+/* Cursor pointer untuk artikel yang bisa diklik */
+.article-card,
+.blog-item {
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.article-card:hover,
+.blog-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsif untuk perangkat mobile */
+@media (max-width: 768px) {
+    .artikel-popup-content {
+        padding: 20px;
+        width: 95%;
+    }
+    
+    .artikel-popup-title {
+        font-size: 1.8rem;
+    }
+    
+    .artikel-popup-text h3 {
+        font-size: 1.5rem;
+        margin: 30px 0 15px;
+    }
+    
+    .artikel-popup-text p {
+        font-size: 1rem;
+    }
+    
+    .artikel-popup-close {
+        top: 10px;
+        right: 10px;
+        width: 30px;
+        height: 30px;
+        font-size: 20px;
+        line-height: 30px;
+    }
+}
