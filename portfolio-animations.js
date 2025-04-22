@@ -84,6 +84,34 @@ document.addEventListener('DOMContentLoaded', function() {
     const projectObserver = createSectionObserver(0.1);
     const projectCards = document.querySelectorAll('.project-card');
     
+    // Create modal container for image zoom
+    const imageModal = document.createElement('div');
+    imageModal.className = 'image-zoom-modal';
+    const modalImg = document.createElement('img');
+    const modalClose = document.createElement('span');
+    modalClose.className = 'modal-close';
+    modalClose.innerHTML = '&times;';
+    imageModal.appendChild(modalImg);
+    imageModal.appendChild(modalClose);
+    document.body.appendChild(imageModal);
+    
+    // Close modal when clicking close button or outside the image
+    modalClose.addEventListener('click', () => {
+        imageModal.classList.remove('active');
+        setTimeout(() => {
+            modalImg.src = '';
+        }, 300);
+    });
+    
+    imageModal.addEventListener('click', (e) => {
+        if (e.target === imageModal) {
+            imageModal.classList.remove('active');
+            setTimeout(() => {
+                modalImg.src = '';
+            }, 300);
+        }
+    });
+    
     projectCards.forEach((card, index) => {
         // Tambahkan kelas animasi masuk acak
         const animClasses = ['flip-in', 'zoom-bounce', 'slide-rotate', 'fade-bounce'];
@@ -110,11 +138,34 @@ document.addEventListener('DOMContentLoaded', function() {
             const highlightBorder = document.createElement('div');
             highlightBorder.className = 'highlight-border';
             
+            // Buat element untuk animasi border bergerak
+            const runningBorder = document.createElement('div');
+            runningBorder.className = 'running-border';
+            
             // Susun ulang struktur DOM untuk efek
             img.parentNode.insertBefore(imageWrapper, img);
             imageWrapper.appendChild(img);
             imageWrapper.appendChild(revealMask);
             imageWrapper.appendChild(highlightBorder);
+            imageWrapper.appendChild(runningBorder);
+            
+            // Add click event for image zoom
+            imageWrapper.addEventListener('click', (e) => {
+                // Get source image
+                const imgSrc = img.src;
+                
+                // Set source in modal
+                modalImg.src = imgSrc;
+                
+                // Show modal with animation
+                imageModal.classList.add('active');
+                
+                // Add running border animation to zoomed image
+                modalImg.classList.add('with-running-border');
+                
+                // Prevent event from bubbling to card
+                e.stopPropagation();
+            });
         }
         
         // Setup interaksi hover yang lebih dinamis
@@ -151,6 +202,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 }, 10);
             }
             
+            // Activate running border
+            const runningBorder = this.querySelector('.running-border');
+            if (runningBorder) {
+                runningBorder.classList.add('active');
+            }
+            
             // Efek overlay muncul dengan lebih menarik
             const overlay = this.querySelector('.project-overlay');
             if (overlay) {
@@ -167,6 +224,12 @@ document.addEventListener('DOMContentLoaded', function() {
         
         card.addEventListener('mouseleave', function() {
             this.classList.remove('hover');
+            
+            // Deactivate running border
+            const runningBorder = this.querySelector('.running-border');
+            if (runningBorder) {
+                runningBorder.classList.remove('active');
+            }
             
             // Reset overlay
             const overlay = this.querySelector('.project-overlay');
@@ -459,16 +522,209 @@ document.addEventListener('DOMContentLoaded', function() {
             transform: translateY(0);
         }
         
-        /* Advanced Project Card animations */
-        .project-card {
+        /* Image Zoom Modal */
+        .image-zoom-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             opacity: 0;
-            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            backface-visibility: hidden;
-            transform-style: preserve-3d;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        .image-zoom-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .image-zoom-modal img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            transform: scale(0.9);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
             position: relative;
-            overflow: hidden;
-            background-color: white;
+        }
+        
+        .image-zoom-modal.active img {
+            transform: scale(1);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.5);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        
+        .modal-close:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+        
+        /* Running Border Animation */
+        .running-border {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 3;
+        }
+        
+        .running-border.active {
+            opacity: 1;
+        }
+        
+        .running-border::before,
+        .running-border::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .running-border::before {
+            border-top: 2px solid var(--primary-color, #B16CEA);
+            border-left: 2px solid var(--primary-color, #B16CEA);
+            animation: borderTopLeft 2s infinite linear;
+        }
+        
+        .running-border::after {
+            border-bottom: 2px solid var(--secondary-color, #FF5E69);
+            border-right: 2px solid var(--secondary-color, #FF5E69);
+            animation: borderBottomRight 2s infinite linear;
+        }
+        
+        /* Running border for zoomed image */
+        .with-running-border {
+            position: relative;
+        }
+        
+        .with-running-border::before,
+        .with-running-border::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 3;
+        }
+        
+        .with-running-border::before {
+            border-top: 3px solid var(--primary-color, #B16CEA);
+            border-left: 3px solid var(--primary-color, #B16CEA);
+            animation: borderTopLeft 3s infinite linear;
+        }
+        
+        .with-running-border::after {
+            border-bottom: 3px solid var(--secondary-color, #FF5E69);
+            border-right: 3px solid var(--secondary-color, #FF5E69);
+            animation: borderBottomRight 3s infinite linear;
+        }
+        
+        @keyframes borderTopLeft {
+            0% {
+                transform: translate(-100%, -100%);
+            }
+            25% {
+                transform: translate(0, -100%);
+            }
+            50% {
+                transform: translate(0, 0);
+            }
+            75% {
+                transform: translate(-100%, 0);
+            }
+            100% {
+                transform: translate(-100%, -100%);
+            }
+        }
+        
+        @keyframes borderBottomRight {
+            0% {
+                transform: translate(100%, 100%);
+            }
+            25% {
+                transform: translate(0, 100%);
+            }
+            50% {
+                transform: translate(0, 0);
+            }
+            75% {
+                transform: translate(100%, 0);
+            }
+            100% {
+                transform: translate(100%, 100%);
+            }
+        }
+        
+        /* Make image-reveal-wrapper clickable */
+        .image-reveal-wrapper {
+            cursor: pointer;
+        }
+        
+        /* Pulse effect for indicating clickable */
+        .image-reveal-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            z-index: 4;
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        
+        .image-reveal-wrapper:hover::after {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+            animation: pulseEffect 1.5s infinite ease-out;
+        }
+        
+        @keyframes pulseEffect {
+            0% {
+                transform: translate(-50%, -50%) scale(0.3);
+                opacity: 0.7;
+            }
+            70% {
+                opacity: 0;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0;
+            }
         }
         
         /* Variasi animasi masuk */
