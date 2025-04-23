@@ -223,5 +223,37 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Panggil fungsi
+        // Tambahkan pengecekan untuk tampilan mobile
+function checkMobile() {
+    if (window.innerWidth <= 768) {
+      const contactHeader = document.querySelector('.contact-info h1');
+      if (contactHeader && contactHeader.classList.contains('dot-trail-container')) {
+        // Atur posisi untuk tampilan mobile
+        contactHeader.style.width = 'fit-content';
+        contactHeader.style.margin = '0 auto 20px auto';
+        contactHeader.style.display = 'block';
+        
+        // Sesuaikan posisi dot dan trail
+        const movingDot = contactHeader.querySelector('.moving-dot-trail');
+        const dotTrail = contactHeader.querySelector('.dot-trail');
+        
+        if (movingDot) {
+          movingDot.style.left = '50%';
+          movingDot.style.transform = 'translateX(-50%)';
+        }
+        
+        if (dotTrail) {
+          dotTrail.style.left = '0';
+          dotTrail.style.right = '0';
+        }
+      }
+    }
+  }
+  
+  // Panggil saat load
+  checkMobile();
+  
+  // Panggil saat resize window
+  window.addEventListener('resize', checkMobile);
     addDotTrailAnimation();
   });

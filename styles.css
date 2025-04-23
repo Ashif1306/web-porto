@@ -61,6 +61,7 @@ img {
     font-weight: 500;
     transition: all 0.3s ease;
     text-align: center;
+    box-sizing: border-box;
 }
 
 .btn-primary {
@@ -76,6 +77,9 @@ img {
 .btn-outline {
     border: 1px solid #ddd;
     color: var(--text-color);
+    transition: all 0.3s ease; /* Transisi yang lebih halus */
+    position: relative; /* Pastikan posisi relatif */
+    background-color: transparent;
 }
 
 .btn-small {
@@ -641,6 +645,8 @@ footer {
     
     .hero-buttons {
         justify-content: center;
+        
+        
     }
     
     .about-me {
@@ -706,6 +712,7 @@ footer {
         flex-direction: column;
         align-items: center;
         gap: 15px;
+        display: flex;
     }
     
     .hero-buttons .btn {
@@ -897,17 +904,22 @@ footer {
     content: "";
   }
   
-  /* Animasi hover untuk tombol VIEW ALL WORKS */
   .btn-outline:hover {
     background-color: rgba(0, 0, 0, 0.05);
-    border-color: #aaa;
-    color: var(--primary-color);
+    border-color: var(--dark-color);
+    color: var(--dark-color);
   }
-  
-  /* Jika tombol VIEW ALL WORKS memiliki class spesifik */
   .hero-buttons a:nth-child(2):hover,
-  a[href*="works"]:hover {
-    background: #1C1C22;
-    border: none;
-    color: white;
+a[href*="works"]:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-color: var(--dark-color); /* Tetap pertahankan border */
+    color: var(--dark-color);
   }
+  @media (max-width: 768px) {
+    .btn {
+      padding: 12px 20px; /* Padding yang lebih nyaman untuk disentuh */
+      font-size: 1rem; /* Ukuran teks yang lebih mudah dibaca */
+      width: 100%; /* Tombol mengisi ruang yang tersedia */
+      max-width: 250px; /* Batasi lebar maksimum */
+    }
+}
