@@ -188,11 +188,14 @@ body.has-fixed-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .hero-text {
     width: 50%;
     padding-right: 40px;
+    flex: 1;
+    padding-right: 2rem;
 }
 
 .hero-text h1 {
@@ -207,22 +210,22 @@ body.has-fixed-header {
 
 .hero-text p {
     color: #777;
-    margin-bottom: 20px; /* Reduced from 30px to 20px */
-    max-width: 90%;
+    margin-bottom: 20px;
+    max-width: 730px;
+    margin-right: auto;
 }
 
 .hero-buttons {
     display: flex;
     gap: 15px;
     align-items: center;
-    margin-top: 20px; /* Added this line */
-    display: inline-block;
-    margin: 0 0.5rem;
-
-    animation: tada; /* referring directly to the animation's @keyframe declaration */
-    animation-duration: 3s; /* don't forget to set a duration! */
-    
+    margin-top: 1rem;
+    animation: backInLeft;
+    animation-duration: 3s;
 }
+
+
+
 
 .hero-image {
     width: 40%;
@@ -458,21 +461,21 @@ body.has-fixed-header {
 }
 
 .item1 {
-    background-image: url('img/images1.png');
+    background-image: url("img/tampilan%20bloger.png");
     grid-column: 1;
     grid-row: 1 / span 2;
     height: 500px;
 }
 
 .item2 {
-    background-image: url('img/images2.png');
+    background-image: url('img/230907501003_MuhAshif_Qoute.png');
     grid-column: 2;
     grid-row: 1;
     height: 240px;
 }
 
 .item3 {
-    background-image: url('img/images3.png');
+    background-image: url('img/230907501003_MuhAshif_Qoute2.png');
     grid-column: 2;
     grid-row: 2;
     height: 240px;
@@ -542,13 +545,6 @@ body.has-fixed-header {
     font-weight: 500;
     color: #333;
 }
-
-@media (max-width: 768px) {
-    .skills-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
 @media (max-width: 768px) {
     .skills-grid {
         grid-template-columns: repeat(2, 1fr);
