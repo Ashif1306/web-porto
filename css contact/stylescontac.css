@@ -1,0 +1,150 @@
+/* Styles tambahan untuk animasi halaman kontak */
+
+/* Animasi untuk judul */
+.animated-letter {
+    display: inline-block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Efek glow pada highlight text */
+.text-glow {
+    animation: textGlow 2s infinite alternate;
+}
+
+@keyframes textGlow {
+    0% { text-shadow: 0 0 5px rgba(255, 94, 105, 0.3); }
+    100% { text-shadow: 0 0 15px rgba(255, 94, 105, 0.7), 0 0 30px rgba(255, 94, 105, 0.4); }
+}
+
+/* Animasi ripple untuk tombol */
+.ripple {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple 0.6s linear;
+    pointer-events: none;
+}
+
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Input animation enhancements */
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 10px rgba(177, 108, 234, 0.3);
+    transform: translateY(-3px);
+}
+
+/* Animasi untuk submit button */
+.contact-form button {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.contact-form button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(177, 108, 234, 0.3);
+}
+
+/* Animasi shake untuk validasi form */
+@keyframes inputShake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+/* FAQ section animations */
+.faq-question {
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.faq-question:hover {
+    background-color: rgba(177, 108, 234, 0.05);
+}
+
+.faq-toggle i {
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.faq-item.active .faq-toggle i {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    transition: height 0.4s ease;
+}
+
+.faq-ripple {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: rgba(177, 108, 234, 0.3);
+    border-radius: 50%;
+    transform: scale(0);
+    animation: faqRipple 0.6s ease-out;
+    pointer-events: none;
+}
+
+@keyframes faqRipple {
+    to {
+        transform: scale(40);
+        opacity: 0;
+    }
+}
+
+/* Smooth page divider animation */
+.page-divider {
+    transition: width 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Success animation for form submission */
+.submit-success {
+    animation: successPulse 0.5s ease;
+}
+
+@keyframes successPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .contact-form button:hover {
+        transform: translateY(0);
+    }
+    
+    .form-group input:focus,
+    .form-group textarea:focus {
+        transform: translateY(0);
+    }
+    
+    /* Simplify animations for better performance on mobile */
+    .text-glow {
+        text-shadow: 0 0 5px rgba(255, 94, 105, 0.3);
+        animation: none;
+    }
+    
+    /* Make touch targets larger on mobile */
+    .faq-question {
+        padding: 15px 0;
+    }
+    
+    .faq-toggle {
+        padding: 10px;
+    }
+}
+
