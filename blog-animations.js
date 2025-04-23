@@ -745,3 +745,95 @@ document.addEventListener('DOMContentLoaded', function() {
     animateSections();
     
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const blogHero = document.querySelector('.blog-hero-content h1');
+    const isMobile = window.innerWidth <= 768; // Cek apakah layar adalah perangkat mobile
+
+    if (blogHero) {
+        blogHero.innerHTML = 'Blogs dan articles <br> for <span class="highlight-pink">business</span> <span class="highlight-orange">growth</span></br>';
+        
+        setTimeout(() => {
+            const updatedBlogHero = document.querySelector('.blog-hero-content h1');
+            if (!updatedBlogHero) return;
+
+            const parts = updatedBlogHero.innerHTML.split(/(<span.*?<\/span>)/g);
+
+            let newHTML = '';
+            parts.forEach(part => {
+                if (part.includes('<span')) {
+                    newHTML += part;
+                } else {
+                    const brParts = part.split(/(<br>|<br\/>|<br \/>)/g);
+                    brParts.forEach(brPart => {
+                        if (brPart === '<br>' || brPart === '<br/>' || brPart === '<br />') {
+                            newHTML += brPart;
+                        } else {
+                            const letters = brPart.split('');
+                            letters.forEach(letter => {
+                                if (letter === ' ') {
+                                    newHTML += ' ';
+                                } else {
+                                    newHTML += `<span class="hero-letter">${letter}</span>`;
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+
+            updatedBlogHero.innerHTML = newHTML;
+
+            const heroLetters = updatedBlogHero.querySelectorAll('.hero-letter');
+            heroLetters.forEach((letter, index) => {
+                letter.style.display = 'inline-block';
+                letter.style.opacity = '0';
+                letter.style.transform = 'translateY(20px)';
+                letter.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                
+                setTimeout(() => {
+                    letter.style.opacity = '1';
+                    letter.style.transform = 'translateY(0)';
+                }, isMobile ? 0 : 30 * index); // Animasi lebih cepat untuk perangkat mobile
+            });
+
+            const highlightSpans = updatedBlogHero.querySelectorAll('.highlight-pink, .highlight-orange');
+            highlightSpans.forEach(span => {
+                span.style.opacity = '0';
+                span.style.transform = 'scale(0.8)';
+                span.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                
+                setTimeout(() => {
+                    span.style.opacity = '1';
+                    span.style.transform = 'scale(1)';
+                    
+                    setTimeout(() => {
+                        span.classList.add('text-glow');
+                    }, 600);
+                }, heroLetters.length * 30 + 300);
+            });
+        }, 50);
+    }
+
+    // Animasi artikel dengan IntersectionObserver (sama seperti kode sebelumnya)
+    const articleCards = document.querySelectorAll('.article-card');
+    articleCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'opacity 0.8s ease, transform 0.8s ease, box-shadow 0.3s ease';
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100 * index);
+                    observer.unobserve(card);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px' });
+
+        observer.observe(card);
+    });
+});
