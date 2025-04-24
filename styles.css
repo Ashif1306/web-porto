@@ -603,7 +603,7 @@ footer {
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    background-color: #f1f1f1;
+    background-color:#c4c4c4;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -612,7 +612,7 @@ footer {
 
 .social-icons a:hover {
     background-color: var(--primary-color);
-    color: white;
+    color:white;
 }
 
 /* Media Queries for Responsiveness */
@@ -773,21 +773,18 @@ footer {
     }
 }
 
-/* Override the margin-top for desktop-specific adjustment */
 @media (min-width: 768px) {
     .hero-content {
         align-items: flex-start;
     }
     
     .hero-text {
-        padding-top: 50px; /* Adjusts text to align with hand level */
+        padding-top: 50px; 
     }
     
     .hero-buttons {
-        margin-top: 40px; /* Reduced from 100px to 40px to bring buttons closer to text */
+        margin-top: 40px; 
     }
-    
-    /* Style untuk desktop - memastikan teks Hello tidak dipengaruhi oleh style mobile */
     .hero-text h1 .gradient-text:first-of-type {
         display: inline-block;
         text-align: left;
@@ -862,15 +859,15 @@ footer {
 }
 
 .stat:nth-child(1) .stat-label {
-    color: #B16CEA;
+    color: #1C1C22;
 }
 
 .stat:nth-child(2) .stat-label {
-    color: #FF5E69;
+    color: #1C1C22;
 }
 
 .stat:nth-child(3) .stat-label {
-    color: #9747FF;
+    color: #1C1C22;
 }
 
 .stat-value {
@@ -878,8 +875,6 @@ footer {
     font-weight: 700;
     color: #000;
 }
-
-/* Gradient Text Effect */
 .gradient-text {
   background: linear-gradient(to right, #B16CEA, #FF5E69, #FF8A56, #FFA84B);
   -webkit-background-clip: text;
@@ -888,14 +883,12 @@ footer {
   text-fill-color: transparent;
   display: inline-block;
 }
-/* Mengurangi jarak antara Hello dan I'm Ashif */
+
 .hero-text h1 {
-    line-height: 1.1; /* Mengurangi line-height untuk merapatkan baris */
+    line-height: 1.1; 
   }
-  
-  /* Jika menggunakan <br>, tambahkan style ini */
   .hero-text h1 br {
-    margin-bottom: 5px; /* Mengurangi margin antar baris */
+    margin-bottom: 5px; 
     display: block;
     content: "";
   }
