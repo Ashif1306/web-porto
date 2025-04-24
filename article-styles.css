@@ -165,7 +165,7 @@
     background-color: var(--category-purple, #9b59b6);
 }
 
-/* Cursor pointer untuk artikel yang bisa diklik */
+
 .article-card,
 .blog-item {
     cursor: pointer;
@@ -178,7 +178,6 @@
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
-/* Responsif untuk perangkat mobile */
 @media (max-width: 768px) {
     .artikel-popup-content {
         padding: 20px;

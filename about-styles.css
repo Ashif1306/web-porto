@@ -302,7 +302,7 @@ body.has-fixed-header {
     font-size: 0.9rem;
 }
 
-/* Skills Banner */
+
 .skills-banner {
     display: flex;
     overflow: hidden;
@@ -323,7 +323,6 @@ body.has-fixed-header {
     margin-right: 10px;
 }
 
-/* Education and Work Section */
 .education-work {
     display: flex;
     padding: 70px 5%;
@@ -362,9 +361,6 @@ body.has-fixed-header {
     font-size: 0.9rem;
 }
 
-/* Companies Section - Removed */
-
-/* Follow Me Section */
 .follow-me {
     padding: 70px 5%;
 }
@@ -446,7 +442,6 @@ body.has-fixed-header {
     transform: translateY(-3px);
 }
 
-/* Footer */
 footer {
     background-color: white;
     padding: 50px 5% 20px;
@@ -495,7 +490,6 @@ footer {
     color: white;
 }
 
-/* Media Queries for Responsiveness */
 @media (max-width: 768px) {
     nav ul {
         display: none;
@@ -606,7 +600,7 @@ footer {
         gap: 16px;
         list-style: none;
         padding: 0;
-        justify-content: center; /* agar di tengah */
+        justify-content: center;
         flex-wrap: wrap;
     }
     
@@ -616,13 +610,12 @@ footer {
     }
 }
 
-/* Specific adjustment to align text with hand and button with waist */
 @media (min-width: 768px) {
     .intro-text {
-        padding-top: 80px; /* Adjusts text to align with hand level */
+        padding-top: 80px;
     }
     
     .social-links {
-        margin-top: 70px; /* Adjusts social links to align with waist level */
+        margin-top: 70px; 
     }
 }
