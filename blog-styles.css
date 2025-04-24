@@ -573,3 +573,4 @@ footer {
 .article-card:hover::before, .blog-item:hover::before {
     opacity: 1;
 }
+

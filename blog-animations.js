@@ -1,839 +1,613 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // ===== PERBAIKAN UNTUK JUDUL BLOG UTAMA =====
-    const blogHero = document.querySelector('.blog-hero-content h1');
-    
-    if (blogHero) {
-        // Ganti judul menjadi tanpa &amp;
-        blogHero.innerHTML = 'Blogs dan articles <br> for <span class="highlight-pink">business</span> <span class="highlight-orange">growth</span></br>';
-        
-        // Tunggu 50ms untuk memastikan perubahan sudah diterapkan
-        setTimeout(() => {
-            // Ambil kembali referensi karena DOM mungkin sudah berubah
-            const updatedBlogHero = document.querySelector('.blog-hero-content h1');
-            if (!updatedBlogHero) return;
-            
-            // Dapatkan teks asli yang sudah diperbaiki dan pecah menjadi bagian-bagian
-            const parts = updatedBlogHero.innerHTML.split(/(<span.*?<\/span>)/g); // Pisahkan teks biasa dan spans
-            
-            let newHTML = '';
-            
-            // Proses setiap bagian
-            parts.forEach(part => {
-                if (part.includes('<span')) {
-                    // Pertahankan span yang sudah ada (highlight-pink dan highlight-orange)
-                    newHTML += part;
-                } else {
-                    // Animasikan teks biasa dengan memecahnya per huruf (hati-hati dengan tag <br>)
-                    const brParts = part.split(/(<br>|<br\/>|<br \/>)/g);
-                    brParts.forEach(brPart => {
-                        if (brPart === '<br>' || brPart === '<br/>' || brPart === '<br />') {
-                            newHTML += brPart;
-                        } else {
-                            const letters = brPart.split('');
-                            letters.forEach(letter => {
-                                if (letter === ' ') {
-                                    newHTML += ' ';
-                                } else {
-                                    newHTML += `<span class="hero-letter">${letter}</span>`;
-                                }
-                            });
-                        }
-                    });
-                }
-            });
-            
-            // Update konten HTML
-            updatedBlogHero.innerHTML = newHTML;
-            
-            // Animasikan huruf-huruf dengan delay
-            const heroLetters = updatedBlogHero.querySelectorAll('.hero-letter');
-            heroLetters.forEach((letter, index) => {
-                letter.style.display = 'inline-block';
-                letter.style.opacity = '0';
-                letter.style.transform = 'translateY(20px)';
-                letter.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-                
-                setTimeout(() => {
-                    letter.style.opacity = '1';
-                    letter.style.transform = 'translateY(0)';
-                }, 30 * index);
-            });
-            
-            // Animasikan spans dengan delay tambahan
-            const highlightSpans = updatedBlogHero.querySelectorAll('.highlight-pink, .highlight-orange');
-            highlightSpans.forEach(span => {
-                span.style.opacity = '0';
-                span.style.transform = 'scale(0.8)';
-                span.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                
-                setTimeout(() => {
-                    span.style.opacity = '1';
-                    span.style.transform = 'scale(1)';
-                    
-                    // Tambahkan efek glow setelah muncul
-                    setTimeout(() => {
-                        span.classList.add('text-glow');
-                    }, 600);
-                }, heroLetters.length * 30 + 300);
-            });
-        }, 50);
-    }
-    
-    // ===== ANIMASI UNTUK FEATURED ARTICLE CARDS =====
+    // ===== VIEWPORT-BASED ANIMATION FOR FEATURED ARTICLES =====
     const articleCards = document.querySelectorAll('.article-card');
     
-    articleCards.forEach((card, index) => {
-        // Siapkan awal animasi
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
-        card.style.transition = 'opacity 0.8s ease, transform 0.8s ease, box-shadow 0.3s ease';
-        
-        // Persiapkan observer
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        card.style.opacity = '1';
-                        card.style.transform = 'translateY(0)';
-                    }, 100 * index);
-                    
-                    observer.unobserve(card);
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px'
-        });
-        
-        observer.observe(card);
-        
-        // Animasi hover yang lebih menarik
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-8px) scale(1.02)';
-            this.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.15)';
-            
-            // Animasi gambar zoom in
-            const img = this.querySelector('.article-image img');
-            if (img) {
-                img.style.transform = 'scale(1.08)';
-                img.style.transition = 'transform 0.5s ease';
+    // Create observer for article cards entrance animation when they enter viewport
+    const articleObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                // Add entrance animation with staggered delay
+                entry.target.classList.add('article-animate');
+                entry.target.style.animationDelay = `${index * 0.15}s`;
+                
+                // Stop observing after animation
+                articleObserver.unobserve(entry.target);
             }
+        });
+    }, {
+        root: null,
+        rootMargin: '-30px', // Trigger when element is 30px inside viewport
+        threshold: 0.1       // Trigger when 10% of element is visible
+    });
+    
+    // Start observing article cards
+    articleCards.forEach(card => {
+        articleObserver.observe(card);
+        
+        // Add hover effect enhancement
+        card.addEventListener('mouseenter', function() {
+            // Add class for hover styles
+            this.classList.add('article-hover');
             
-            // Animasi kategori
-            const categories = this.querySelectorAll('.category');
-            categories.forEach((cat, i) => {
-                cat.style.transform = 'translateY(-3px)';
-                cat.style.transition = 'transform 0.3s ease';
-                cat.style.transitionDelay = `${i * 0.05}s`;
-            });
+            // Enhanced image zoom
+            const image = this.querySelector('.article-image img');
+            if (image) {
+                image.style.transform = 'scale(1.05)';
+            }
         });
         
         card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
-            this.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.05)';
+            this.classList.remove('article-hover');
             
-            // Reset animasi gambar
-            const img = this.querySelector('.article-image img');
-            if (img) {
-                img.style.transform = 'scale(1)';
+            // Reset image zoom
+            const image = this.querySelector('.article-image img');
+            if (image) {
+                image.style.transform = '';
             }
-            
-            // Reset animasi kategori
-            const categories = this.querySelectorAll('.category');
-            categories.forEach(cat => {
-                cat.style.transform = 'translateY(0)';
-                cat.style.transitionDelay = '0s';
-            });
         });
     });
     
-    // ===== ANIMASI UNTUK SKILLS BANNER =====
-    const skillsItems = document.querySelectorAll('.skill-item');
-    
-    if (skillsItems.length > 0) {
-        // Buat animasi bergerak otomatis
-        const skillsBanner = document.querySelector('.skills-banner');
-        
-        if (skillsBanner) {
-            // Duplikasi item untuk infinite scroll effect
-            const skillsContent = skillsBanner.innerHTML;
-            skillsBanner.innerHTML = skillsContent + skillsContent;
-            
-            // Animasi bergerak
-            skillsBanner.style.width = '200%';
-            skillsBanner.style.animation = 'scrollSkills 30s linear infinite';
-            
-            // Tambahkan hover pause
-            skillsBanner.addEventListener('mouseenter', function() {
-                this.style.animationPlayState = 'paused';
-            });
-            
-            skillsBanner.addEventListener('mouseleave', function() {
-                this.style.animationPlayState = 'running';
-            });
-        }
-        
-        // Tambahkan animasi hover pada skill items
-        skillsItems.forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-5px)';
-                this.style.transition = 'transform 0.3s ease';
-                
-                // Tambahkan efek highlight pada icon
-                const icon = this.querySelector('i');
-                if (icon) {
-                    icon.style.transform = 'scale(1.2)';
-                    icon.style.transition = 'transform 0.3s ease';
-                }
-            });
-            
-            item.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0)';
-                
-                // Reset efek pada icon
-                const icon = this.querySelector('i');
-                if (icon) {
-                    icon.style.transform = 'scale(1)';
-                }
-            });
-        });
-    }
-    
-    // ===== ANIMASI UNTUK RECENT INSIGHTS SECTION =====
-    const insightsTitle = document.querySelector('.recent-insights h2');
-    const filterButtons = document.querySelectorAll('.filter-btn');
+    // ===== VIEWPORT-BASED ANIMATION FOR BLOG LIST =====
     const blogItems = document.querySelectorAll('.blog-item');
     
-    // Animasi title dengan highlight span
-    if (insightsTitle) {
-        const titleText = insightsTitle.innerHTML;
-        const hasSpan = titleText.includes('<span');
-        
-        if (hasSpan) {
-            const span = insightsTitle.querySelector('span');
-            if (span) {
-                span.style.opacity = '0';
-                span.style.transform = 'translateX(20px)';
-                span.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+    // Create observer for blog list items entrance animation when they enter viewport
+    const blogObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                // Add entrance animation with staggered delay
+                entry.target.classList.add('blog-animate');
+                entry.target.style.animationDelay = `${index * 0.12}s`;
                 
-                const titleObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            setTimeout(() => {
-                                span.style.opacity = '1';
-                                span.style.transform = 'translateX(0)';
-                                
-                                // Tambahkan efek glow setelah muncul
-                                setTimeout(() => {
-                                    span.classList.add('highlight-glow');
-                                }, 800);
-                            }, 300);
-                            
-                            titleObserver.unobserve(insightsTitle);
-                        }
-                    });
-                }, {
-                    threshold: 0.5
+                // Stop observing after animation
+                blogObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        root: null,
+        rootMargin: '-30px', // Trigger when element is 30px inside viewport
+        threshold: 0.1       // Trigger when 10% of element is visible
+    });
+    
+    // Start observing blog items
+    blogItems.forEach(item => {
+        blogObserver.observe(item);
+        
+        // Add hover effect enhancement
+        item.addEventListener('mouseenter', function() {
+            this.classList.add('blog-hover');
+            
+            // Enhanced image zoom
+            const image = this.querySelector('.blog-image img');
+            if (image) {
+                image.style.transform = 'scale(1.05)';
+            }
+        });
+        
+        item.addEventListener('mouseleave', function() {
+            this.classList.remove('blog-hover');
+            
+            // Reset image zoom
+            const image = this.querySelector('.blog-image img');
+            if (image) {
+                image.style.transform = '';
+            }
+        });
+    });
+    
+    // ===== VIEWPORT-BASED ANIMATION FOR FILTER BUTTONS =====
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const filterContainer = document.querySelector('.filter-categories');
+    
+    // Create observer for filter buttons section
+    const filterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Animate all filter buttons with staggered delay when container enters viewport
+                filterButtons.forEach((button, index) => {
+                    button.style.opacity = '0';
+                    button.style.transform = 'translateY(15px)';
+                    button.style.transition = 'opacity 0.5s ease, transform 0.5s ease, background-color 0.3s ease';
+                    
+                    setTimeout(() => {
+                        button.style.opacity = '1';
+                        button.style.transform = 'translateY(0)';
+                    }, 100 + (index * 70));
                 });
                 
-                titleObserver.observe(insightsTitle);
+                // Stop observing after animation
+                filterObserver.unobserve(entry.target);
             }
-        }
+        });
+    }, {
+        root: null,
+        rootMargin: '-20px',
+        threshold: 0.1
+    });
+    
+    // Start observing filter container
+    if (filterContainer) {
+        filterObserver.observe(filterContainer);
     }
     
-    // Animasi filter buttons
-    filterButtons.forEach((btn, index) => {
-        btn.style.opacity = '0';
-        btn.style.transform = 'translateY(15px)';
-        btn.style.transition = 'opacity 0.5s ease, transform 0.5s ease, background-color 0.3s ease';
-        
-        setTimeout(() => {
-            btn.style.opacity = '1';
-            btn.style.transform = 'translateY(0)';
-        }, 100 + (index * 100));
-        
-        // Efek klik yang lebih interaktif
-        btn.addEventListener('click', function() {
-            // Reset semua button
-            filterButtons.forEach(b => {
-                b.classList.remove('active');
-            });
-            
-            // Aktifkan button yang diklik
-            this.classList.add('active');
-            
-            // Tambahkan efek ripple
+    // Add click effect for filter buttons
+    filterButtons.forEach((button) => {
+        // Add click animation
+        button.addEventListener('click', function() {
+            // Add ripple effect on click
             const ripple = document.createElement('span');
-            ripple.classList.add('btn-ripple');
+            ripple.className = 'btn-ripple';
             this.appendChild(ripple);
             
-            // Animasi ripple
-            ripple.style.animation = 'rippleEffect 0.6s linear forwards';
-            
-            // Hapus ripple setelah animasi selesai
             setTimeout(() => {
                 ripple.remove();
             }, 600);
             
-            // Filter logic can be added here
-        });
-    });
-    
-    // Animasi blog items
-    blogItems.forEach((item, index) => {
-        item.style.opacity = '0';
-        item.style.transform = 'translateX(30px)';
-        item.style.transition = 'opacity 0.8s ease, transform 0.8s ease, box-shadow 0.3s ease';
-        
-        const blogObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        item.style.opacity = '1';
-                        item.style.transform = 'translateX(0)';
-                    }, 200 + (index * 150));
-                    
-                    blogObserver.unobserve(item);
-                }
+            // Update active state
+            filterButtons.forEach(btn => {
+                btn.classList.remove('active');
             });
-        }, {
-            threshold: 0.1
-        });
-        
-        blogObserver.observe(item);
-        
-        // Animasi hover yang lebih menarik
-        item.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-8px)';
-            this.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.15)';
+            this.classList.add('active');
             
-            // Zoom efek pada gambar
-            const img = this.querySelector('.blog-image img');
-            if (img) {
-                img.style.transform = 'scale(1.1)';
-                img.style.transition = 'transform 0.5s ease';
-            }
-            
-            // Efek pada kategori
-            const categories = this.querySelectorAll('.category');
-            categories.forEach((cat, i) => {
-                cat.style.transform = 'translateY(-3px)';
-                cat.style.transition = 'transform 0.3s ease';
-                cat.style.transitionDelay = `${i * 0.05}s`;
-            });
-        });
-        
-        item.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0)';
-            this.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.05)';
-            
-            // Reset efek pada gambar
-            const img = this.querySelector('.blog-image img');
-            if (img) {
-                img.style.transform = 'scale(1)';
-            }
-            
-            // Reset efek pada kategori
-            const categories = this.querySelectorAll('.category');
-            categories.forEach(cat => {
-                cat.style.transform = 'translateY(0)';
-                cat.style.transitionDelay = '0s';
+            // Animate blog items on filter change
+            blogItems.forEach((item, i) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(15px)';
+                
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, 200 + (i * 80));
             });
         });
     });
     
-    // ===== ANIMASI UNTUK CTA SECTION =====
+    // ===== VIEWPORT-BASED ANIMATION FOR CTA SECTION =====
     const ctaSection = document.querySelector('.cta');
-    const ctaTitle = ctaSection ? ctaSection.querySelector('h2') : null;
-    const ctaLink = ctaSection ? ctaSection.querySelector('.cta-link') : null;
     
-    if (ctaTitle && ctaLink) {
-        ctaTitle.style.opacity = '0';
-        ctaTitle.style.transform = 'translateY(30px)';
-        ctaTitle.style.transition = 'opacity 1s ease, transform 1s ease';
+    if (ctaSection) {
+        const ctaText = ctaSection.querySelector('h2');
+        const ctaLink = ctaSection.querySelector('.cta-link');
         
-        ctaLink.style.opacity = '0';
-        ctaLink.style.transform = 'translateY(20px)';
-        ctaLink.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        // Initial state
+        if (ctaText) {
+            ctaText.style.opacity = '0';
+            ctaText.style.transform = 'translateY(20px)';
+            ctaText.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+        }
+        
+        if (ctaLink) {
+            ctaLink.style.opacity = '0';
+            ctaLink.style.transform = 'translateX(-15px)';
+            ctaLink.style.transition = 'all 0.6s ease';
+        }
         
         const ctaObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    // Animate title first
-                    setTimeout(() => {
-                        ctaTitle.style.opacity = '1';
-                        ctaTitle.style.transform = 'translateY(0)';
-                        
-                        // Then animate link
+                    // Animate CTA title
+                    if (ctaText) {
+                        ctaText.style.opacity = '1';
+                        ctaText.style.transform = 'translateY(0)';
+                    }
+                    
+                    // Animate CTA link with slight delay
+                    if (ctaLink) {
                         setTimeout(() => {
                             ctaLink.style.opacity = '1';
-                            ctaLink.style.transform = 'translateY(0)';
-                            
-                            // Add pulse effect to arrow
-                            const arrow = ctaLink.querySelector('i');
-                            if (arrow) {
-                                setTimeout(() => {
-                                    arrow.classList.add('arrow-pulse');
-                                }, 500);
-                            }
+                            ctaLink.style.transform = 'translateX(0)';
                         }, 400);
-                    }, 300);
+                    }
                     
-                    ctaObserver.unobserve(ctaSection);
+                    // Stop observing after animation
+                    ctaObserver.unobserve(entry.target);
                 }
             });
         }, {
-            threshold: 0.5
+            root: null,
+            rootMargin: '-50px', 
+            threshold: 0.2
         });
         
+        // Start observing
         ctaObserver.observe(ctaSection);
-        
-        // Enhanced hover animation for CTA link
-        ctaLink.addEventListener('mouseenter', function() {
-            const arrow = this.querySelector('i');
-            if (arrow) {
-                arrow.style.transform = 'translateX(10px)';
-                arrow.style.transition = 'transform 0.3s ease';
-            }
-            
-            // Animate the underline
-            const underline = this.querySelector('::after') || this;
-            underline.style.setProperty('--underline-width', '100%');
-        });
-        
-        ctaLink.addEventListener('mouseleave', function() {
-            const arrow = this.querySelector('i');
-            if (arrow) {
-                arrow.style.transform = 'translateX(0)';
-            }
-            
-            // Reset underline animation
-            const underline = this.querySelector('::after') || this;
-            underline.style.setProperty('--underline-width', '0%');
-        });
     }
     
-    // ===== CSS STYLES FOR ANIMATIONS =====
-    const styleElement = document.createElement('style');
-    styleElement.textContent = `
-        /* Hero title animation */
-        .hero-letter {
-            display: inline-block;
+    // ===== MARQUEE-STYLE CONTINUOUS BANNER ANIMATION =====
+    const skillsBanner = document.querySelector('.skills-banner');
+    
+    if (skillsBanner) {
+        // Simpan konten asli banner
+        const originalContent = skillsBanner.innerHTML;
+        
+        // Buat wrapper baru untuk konten
+        const marqueeWrapper = document.createElement('div');
+        marqueeWrapper.className = 'marquee-wrapper';
+        
+        // Buat konten yang akan digerakkan
+        const marqueeContent = document.createElement('div');
+        marqueeContent.className = 'marquee-content';
+        
+        // Bersihkan banner
+        skillsBanner.innerHTML = '';
+        
+        // Tambahkan konten original beberapa kali untuk memastikan kontinuitas
+        // Ini akan membuat elemen cukup lebar untuk menutupi seluruh lebar viewport
+        // dan animasi akan terlihat mulus tanpa reset
+        for (let i = 0; i < 10; i++) {
+            const itemsContainer = document.createElement('div');
+            itemsContainer.className = 'marquee-items';
+            itemsContainer.innerHTML = originalContent;
+            marqueeContent.appendChild(itemsContainer);
+        }
+        
+        // Susun elemen-elemen
+        marqueeWrapper.appendChild(marqueeContent);
+        skillsBanner.appendChild(marqueeWrapper);
+        
+        // Tunggu elemen selesai di-render untuk menghitung durasi
+        setTimeout(() => {
+            // Ukur lebar konten untuk menentukan durasi animasi
+            const contentWidth = marqueeContent.scrollWidth;
+            const viewportWidth = window.innerWidth;
+            
+            // Durasi berdasarkan lebar konten dengan dasar 20 detik
+            // Semakin panjang konten, semakin lama durasi animasi
+            const duration = Math.max(contentWidth / viewportWidth * 20, 40);
+            
+            // Terapkan animasi kontinu
+            marqueeContent.style.animation = `marqueeMove ${duration}s linear infinite`;
+            marqueeContent.style.transform = 'translateX(0)';
+            
+            // Simpan nilai awal transformasi
+            let currentPosition = 0;
+            
+            // Fungsi untuk memulai animasi
+            function startAnimation() {
+                // Mulai dari posisi saat ini, bukan dari awal
+                marqueeContent.style.animation = 'none';
+                marqueeContent.style.transform = `translateX(${currentPosition}px)`;
+                
+                // Force reflow
+                void marqueeContent.offsetWidth;
+                
+                // Hitung durasi yang tersisa berdasarkan posisi
+                const totalDistance = contentWidth;
+                const remainingDistance = totalDistance + currentPosition; // currentPosition selalu negatif
+                const remainingDuration = duration * (remainingDistance / totalDistance);
+                
+                // Mulai animasi dari posisi saat ini
+                marqueeContent.style.animation = `marqueeMove ${remainingDuration}s linear infinite`;
+                marqueeContent.style.animationPlayState = 'running';
+            }
+            
+            // Fungsi untuk berhenti dan menyimpan posisi
+            function pauseAnimation() {
+                const computedStyle = window.getComputedStyle(marqueeContent);
+                const transform = computedStyle.getPropertyValue('transform');
+                const matrix = new DOMMatrix(transform);
+                currentPosition = matrix.m41; // Nilai translateX
+                
+                marqueeContent.style.animationPlayState = 'paused';
+            }
+            
+            // Tambahkan event listener untuk pause saat tab tidak aktif
+            document.addEventListener('visibilitychange', function() {
+                if (document.hidden) {
+                    pauseAnimation();
+                } else {
+                    startAnimation();
+                }
+            });
+            
+            // Tambahkan event listener untuk resize window
+            window.addEventListener('resize', function() {
+                pauseAnimation();
+                startAnimation();
+            });
+        }, 500);
+    }
+    
+    // ===== ADDING SCROLL PROGRESS BAR TO ARTICLE POPUP =====
+    const popup = document.getElementById('artikel-popup');
+    if (popup) {
+        // Create progress bar element
+        const progressBar = document.createElement('div');
+        progressBar.className = 'article-progress-bar';
+        
+        // Add progress bar to the body element instead of popup content
+        // This will position it at the very top of the window when popup is open
+        document.body.appendChild(progressBar);
+        
+        // Hide progress bar initially
+        progressBar.style.display = 'none';
+        
+        // Handle popup opening (show progress bar)
+        const openPopup = function() {
+            progressBar.style.display = 'block';
+            progressBar.style.width = '0%';
+        };
+        
+        // Handle popup closing (hide progress bar)
+        const closePopup = function() {
+            progressBar.style.display = 'none';
+        };
+        
+        // Update progress bar on scroll
+        const popupContent = popup.querySelector('.artikel-popup-content');
+        if (popupContent) {
+            popupContent.addEventListener('scroll', function() {
+                const scrollTop = this.scrollTop;
+                const scrollHeight = this.scrollHeight;
+                const clientHeight = this.clientHeight;
+                
+                // Calculate scroll percentage
+                const scrollPercentage = (scrollTop / (scrollHeight - clientHeight)) * 100;
+                
+                // Update progress bar width
+                progressBar.style.width = `${Math.min(scrollPercentage, 100)}%`;
+                
+                // Add class when complete
+                if (scrollPercentage >= 98) {
+                    progressBar.classList.add('complete');
+                } else {
+                    progressBar.classList.remove('complete');
+                }
+            });
+        }
+        
+        // Add event listeners to all article cards and blog items
+        const allArticleItems = document.querySelectorAll('.article-card, .blog-item');
+        allArticleItems.forEach(item => {
+            item.addEventListener('click', openPopup);
+        });
+        
+        // Add event listener to close button and overlay
+        const closeButton = popup.querySelector('.artikel-popup-close');
+        const overlay = popup.querySelector('.artikel-popup-overlay');
+        
+        if (closeButton) {
+            closeButton.addEventListener('click', closePopup);
+        }
+        
+        if (overlay) {
+            overlay.addEventListener('click', closePopup);
+        }
+        
+        // Add event listener for escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && popup.classList.contains('active')) {
+                closePopup();
+            }
+        });
+        
+        // Enhanced popup open animation
+        const enhancePopup = function() {
+            // Get the existing close button
+            if (closeButton) {
+                closeButton.innerHTML = '<span class="close-icon">&times;</span>';
+                closeButton.addEventListener('mouseenter', function() {
+                    this.classList.add('pulse');
+                });
+                closeButton.addEventListener('mouseleave', function() {
+                    this.classList.remove('pulse');
+                });
+            }
+        };
+        
+        // Apply enhancements
+        enhancePopup();
+    }
+    
+    // ===== ADD CSS STYLES FOR ANIMATIONS =====
+    const style = document.createElement('style');
+    style.textContent = `
+        /* Article Card Animation - Viewport Based */
+        .article-card {
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(30px);
+            transition: transform 0.5s ease, box-shadow 0.5s ease, opacity 0.5s ease;
+            will-change: transform, opacity;
         }
         
-        /* Text glow effect */
-        .text-glow {
-            animation: textGlow 2s infinite alternate;
+        .article-animate {
+            animation: cardSlideUp 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
         
-        @keyframes textGlow {
-            0% { text-shadow: 0 0 5px rgba(255, 94, 105, 0.3); }
-            100% { text-shadow: 0 0 15px rgba(255, 94, 105, 0.7), 0 0 30px rgba(255, 94, 105, 0.4); }
+        @keyframes cardSlideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
-        /* Status Bar untuk Artikel Popup */
-        .scroll-status-bar {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background-color: rgba(0, 0, 0, 0.1);
-            z-index: 1003;
+        .article-hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
         }
         
-        .scroll-progress-bar {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(to right, var(--primary-color, #B16CEA), var(--secondary-color, #FF5E69));
-            transition: width 0.2s ease;
-            border-top-right-radius: 2px;
-            border-bottom-right-radius: 2px;
+        /* Blog Items Animation - Viewport Based */
+        .blog-item {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: transform 0.5s ease, box-shadow 0.5s ease, opacity 0.5s ease;
+            will-change: transform, opacity;
         }
         
-        /* Skills banner scroll animation */
-        @keyframes scrollSkills {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+        .blog-animate {
+            animation: blogSlideIn 0.7s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
         
-        /* Highlight glow effect */
-        .highlight-glow {
-            animation: highlightGlow 2s infinite alternate;
+        @keyframes blogSlideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
-        @keyframes highlightGlow {
-            0% { text-shadow: 0 0 5px rgba(255, 138, 86, 0.3); }
-            100% { text-shadow: 0 0 10px rgba(255, 138, 86, 0.7); }
+        .blog-hover {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
         }
         
-        /* Button ripple effect */
-        .btn-ripple {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.4);
-            border-radius: 20px;
-            transform: translate(-50%, -50%) scale(0);
-            pointer-events: none;
-        }
-        
-        @keyframes rippleEffect {
-            0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
-            100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
-        }
-        
-        /* Arrow pulse animation */
-        .arrow-pulse {
-            animation: arrowPulse 1.5s infinite alternate;
-        }
-        
-        @keyframes arrowPulse {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(8px); }
-        }
-        
-        /* Filter button styles */
+        /* Filter Button Animation */
         .filter-btn {
             position: relative;
             overflow: hidden;
         }
         
-        .filter-btn.active {
-            position: relative;
+        .btn-ripple {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            animation: ripple 0.6s linear;
+            pointer-events: none;
+        }
+        
+        @keyframes ripple {
+            to {
+                transform: translate(-50%, -50%) scale(3);
+                opacity: 0;
+            }
+        }
+        
+        /* Marquee-Style Continuous Banner Animation */
+        .skills-banner {
+            width: 100%;
             overflow: hidden;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color), var(--tertiary-color), var(--quaternary-color));
+            color: white;
+            padding: 15px 0;
+            position: relative;
         }
         
-        /* Article popup animations */
-        .artikel-popup.active .artikel-popup-overlay {
-            animation: fadeIn 0.4s forwards;
+        .marquee-wrapper {
+            overflow: hidden;
+            width: 100%;
+            position: relative;
         }
         
-        .artikel-popup.active .artikel-popup-content {
-            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        .marquee-content {
+            display: flex;
+            position: relative;
+            will-change: transform;
         }
         
-        @keyframes popIn {
-            0% { transform: translate(-50%, -55%) scale(0.9); opacity: 0; }
-            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        .marquee-items {
+            display: flex;
+            flex-shrink: 0;
+            align-items: center;
         }
         
-        @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
+        .skill-item {
+            display: inline-flex;
+            align-items: center;
+            padding: 0 25px;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
         
-        /* Responsive adjustments */
+        .skill-item i {
+            margin-right: 10px;
+        }
+        
+        @keyframes marqueeMove {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+        
+        /* Article Progress Bar Styles */
+        .article-progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 5px;
+            width: 0%;
+            background: linear-gradient(to right, var(--primary-color, #B16CEA), var(--secondary-color, #FF5E69));
+            z-index: 9999; /* Ensure it's above everything */
+            transition: width 0.2s ease-out;
+            border-radius: 0 2px 2px 0;
+            display: none; /* Hidden by default */
+        }
+        
+        .article-progress-bar.complete {
+            background: linear-gradient(to right, #28a745, #20c997);
+        }
+        
+        /* Enhanced Close Button */
+        .artikel-popup-close {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        
+        .artikel-popup-close.pulse {
+            animation: pulse-effect 1s infinite;
+        }
+        
+        @keyframes pulse-effect {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(255, 94, 105, 0.7);
+            }
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(255, 94, 105, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(255, 94, 105, 0);
+            }
+        }
+        
+        /* Mobile Responsive Styles */
         @media (max-width: 768px) {
-            .skills-banner {
-                width: 300% !important;
+            .article-card, .blog-item {
+                transform: translateY(20px); /* Smaller translation for mobile */
             }
             
-            @keyframes scrollSkills {
-                0% { transform: translateX(0); }
-                100% { transform: translateX(-33.33%); }
+            .article-hover, .blog-hover {
+                transform: translateY(-3px); /* Smaller hover effect for mobile */
+            }
+            
+            .artikel-popup-content {
+                width: 95%;
+                max-height: 85vh;
+                padding: 25px 15px;
+            }
+            
+            .article-progress-bar {
+                height: 3px; /* Slightly smaller progress bar on mobile */
+            }
+            
+            /* Ensure skill items are visible on mobile */
+            .skill-item {
+                padding: 0 15px; /* Smaller padding on mobile */
+            }
+            
+            /* Slower animation for better readability on mobile */
+            .skills-track {
+                animation-duration: 30s !important; 
             }
         }
     `;
     
-    document.head.appendChild(styleElement);
-    
-    // ===== INTEGRASIKAN DENGAN POPUP ARTIKEL YANG SUDAH ADA =====
-    // Tambahkan animasi untuk popup artikel dari article.js
-    const popup = document.getElementById('artikel-popup');
-    
-    if (popup) {
-        const popupContent = popup.querySelector('.artikel-popup-content');
-        const popupClose = popup.querySelector('.artikel-popup-close');
-        
-        // Buat elemen status bar
-        const statusBar = document.createElement('div');
-        statusBar.className = 'scroll-status-bar';
-        
-        // Buat elemen progress di dalam status bar
-        const progressBar = document.createElement('div');
-        progressBar.className = 'scroll-progress-bar';
-        
-        // Tambahkan status bar ke popup, di bagian atas
-        statusBar.appendChild(progressBar);
-        if (popupContent) {
-            popupContent.parentNode.insertBefore(statusBar, popupContent);
-        }
-        
-        // Fungsi untuk mengupdate progress bar saat scrolling
-        function updateScrollProgress() {
-            if (!popup.classList.contains('active')) return;
-            
-            const totalHeight = popupContent.scrollHeight - popupContent.clientHeight;
-            const progress = (popupContent.scrollTop / totalHeight) * 100;
-            progressBar.style.width = `${progress}%`;
-        }
-        
-        // Tambahkan event listener untuk scrolling di popup content
-        if (popupContent) {
-            popupContent.addEventListener('scroll', updateScrollProgress);
-        }
-        
-        // Enhance close button animation
-        if (popupClose) {
-            popupClose.addEventListener('mouseenter', function() {
-                this.style.transform = 'rotate(90deg)';
-                this.style.backgroundColor = 'var(--highlight-pink)';
-                this.style.color = 'white';
-                this.style.transition = 'all 0.3s ease';
-            });
-            
-            popupClose.addEventListener('mouseleave', function() {
-                this.style.transform = 'rotate(0)';
-                this.style.backgroundColor = '#f1f1f1';
-                this.style.color = '#333';
-            });
-        }
-        
-        // Enhanced animations for popup content when opening
-        function enhancePopupAnimation() {
-            if (popupContent) {
-                // Animate title with stagger
-                const title = popupContent.querySelector('.artikel-popup-title');
-                if (title) {
-                    const titleText = title.textContent;
-                    const titleChars = titleText.split('');
-                    
-                    let newTitleHTML = '';
-                    titleChars.forEach(char => {
-                        if (char === ' ') {
-                            newTitleHTML += ' ';
-                        } else {
-                            newTitleHTML += `<span class="title-char">${char}</span>`;
-                        }
-                    });
-                    
-                    title.innerHTML = newTitleHTML;
-                    
-                    const titleCharsSpans = title.querySelectorAll('.title-char');
-                    titleCharsSpans.forEach((span, index) => {
-                        span.style.opacity = '0';
-                        span.style.transform = 'translateY(10px)';
-                        span.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-                        span.style.display = 'inline-block';
-                        
-                        setTimeout(() => {
-                            span.style.opacity = '1';
-                            span.style.transform = 'translateY(0)';
-                        }, 100 + (index * 15)); // Staggered timing
-                    });
-                }
-                
-                // Animate categories
-                const categories = popupContent.querySelectorAll('.category');
-                categories.forEach((category, index) => {
-                    category.style.opacity = '0';
-                    category.style.transform = 'translateY(10px)';
-                    category.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                    
-                    setTimeout(() => {
-                        category.style.opacity = '1';
-                        category.style.transform = 'translateY(0)';
-                    }, 300 + (index * 100));
-                });
-                
-                // Animate image
-                const image = popupContent.querySelector('.artikel-popup-image img');
-                if (image) {
-                    image.style.opacity = '0';
-                    image.style.transform = 'scale(0.95)';
-                    image.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-                    
-                    setTimeout(() => {
-                        image.style.opacity = '1';
-                        image.style.transform = 'scale(1)';
-                    }, 400);
-                }
-                
-                // Animate paragraphs
-                const paragraphs = popupContent.querySelectorAll('.artikel-popup-text p');
-                paragraphs.forEach((p, index) => {
-                    p.style.opacity = '0';
-                    p.style.transform = 'translateY(20px)';
-                    p.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                    
-                    setTimeout(() => {
-                        p.style.opacity = '1';
-                        p.style.transform = 'translateY(0)';
-                    }, 600 + (index * 100));
-                });
-                
-                // Animate headings
-                const headings = popupContent.querySelectorAll('.artikel-popup-text h3');
-                headings.forEach((h, index) => {
-                    h.style.opacity = '0';
-                    h.style.transform = 'translateX(-15px)';
-                    h.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
-                    
-                    setTimeout(() => {
-                        h.style.opacity = '1';
-                        h.style.transform = 'translateX(0)';
-                    }, 500 + (index * 120));
-                });
-            }
-        }
-        
-        // Monitor for when popup becomes active
-        const popupObserver = new MutationObserver((mutations) => {
-            mutations.forEach(mutation => {
-                if (mutation.attributeName === 'class') {
-                    if (popup.classList.contains('active')) {
-                        enhancePopupAnimation();
-                        // Reset scroll position dan update progress bar saat popup dibuka
-                        if (popupContent) {
-                            popupContent.scrollTop = 0;
-                            updateScrollProgress();
-                        }
-                    }
-                }
-            });
-        });
-        
-        popupObserver.observe(popup, { attributes: true });
-    }
-    
-    // ===== SCROLLING ANIMATIONS =====
-    // Smooth scroll to top when page loads
-    window.addEventListener('load', function() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-    
-    // Scroll-triggered animations for sections
-    function animateSections() {
-        const sections = document.querySelectorAll('section');
-        
-        sections.forEach(section => {
-            // Skip hero section
-            if (section.classList.contains('blog-hero')) return;
-            
-            // Setup initial state
-            section.style.opacity = '0';
-            section.style.transform = 'translateY(30px)';
-            section.style.transition = 'opacity 1s ease, transform 1s ease';
-            
-            // Create observer
-            const sectionObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        section.style.opacity = '1';
-                        section.style.transform = 'translateY(0)';
-                        
-                        sectionObserver.unobserve(section);
-                    }
-                });
-            }, {
-                threshold: 0.2
-            });
-            
-            sectionObserver.observe(section);
-        });
-    }
-    
-    // Call section animations
-    animateSections();
-    
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    const blogHero = document.querySelector('.blog-hero-content h1');
-    const isMobile = window.innerWidth <= 768; // Cek apakah layar adalah perangkat mobile
-
-    if (blogHero) {
-        blogHero.innerHTML = 'Blogs dan articles <br> for <span class="highlight-pink">business</span> <span class="highlight-orange">growth</span></br>';
-        
-        setTimeout(() => {
-            const updatedBlogHero = document.querySelector('.blog-hero-content h1');
-            if (!updatedBlogHero) return;
-
-            const parts = updatedBlogHero.innerHTML.split(/(<span.*?<\/span>)/g);
-
-            let newHTML = '';
-            parts.forEach(part => {
-                if (part.includes('<span')) {
-                    newHTML += part;
-                } else {
-                    const brParts = part.split(/(<br>|<br\/>|<br \/>)/g);
-                    brParts.forEach(brPart => {
-                        if (brPart === '<br>' || brPart === '<br/>' || brPart === '<br />') {
-                            newHTML += brPart;
-                        } else {
-                            const letters = brPart.split('');
-                            letters.forEach(letter => {
-                                if (letter === ' ') {
-                                    newHTML += ' ';
-                                } else {
-                                    newHTML += `<span class="hero-letter">${letter}</span>`;
-                                }
-                            });
-                        }
-                    });
-                }
-            });
-
-            updatedBlogHero.innerHTML = newHTML;
-
-            const heroLetters = updatedBlogHero.querySelectorAll('.hero-letter');
-            heroLetters.forEach((letter, index) => {
-                letter.style.display = 'inline-block';
-                letter.style.opacity = '0';
-                letter.style.transform = 'translateY(20px)';
-                letter.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-                
-                setTimeout(() => {
-                    letter.style.opacity = '1';
-                    letter.style.transform = 'translateY(0)';
-                }, isMobile ? 0 : 30 * index); // Animasi lebih cepat untuk perangkat mobile
-            });
-
-            const highlightSpans = updatedBlogHero.querySelectorAll('.highlight-pink, .highlight-orange');
-            highlightSpans.forEach(span => {
-                span.style.opacity = '0';
-                span.style.transform = 'scale(0.8)';
-                span.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                
-                setTimeout(() => {
-                    span.style.opacity = '1';
-                    span.style.transform = 'scale(1)';
-                    
-                    setTimeout(() => {
-                        span.classList.add('text-glow');
-                    }, 600);
-                }, heroLetters.length * 30 + 300);
-            });
-        }, 50);
-    }
-
-    // Animasi artikel dengan IntersectionObserver (sama seperti kode sebelumnya)
-    const articleCards = document.querySelectorAll('.article-card');
-    articleCards.forEach((card, index) => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
-        card.style.transition = 'opacity 0.8s ease, transform 0.8s ease, box-shadow 0.3s ease';
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        card.style.opacity = '1';
-                        card.style.transform = 'translateY(0)';
-                    }, 100 * index);
-                    observer.unobserve(card);
-                }
-            });
-        }, { threshold: 0.1, rootMargin: '0px' });
-
-        observer.observe(card);
-    });
+    document.head.appendChild(style);
 });

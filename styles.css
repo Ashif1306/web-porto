@@ -461,7 +461,7 @@ body.has-fixed-header {
 }
 
 .item1 {
-    background-image: url("img/tampilan%20bloger.png");
+    background-image: url("img/blogerku.svg");
     grid-column: 1;
     grid-row: 1 / span 2;
     height: 500px;
