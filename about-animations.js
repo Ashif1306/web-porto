@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    
     // ===== ANIMASI UNTUK INTRO SECTION (TERMASUK FOTO PROFIL) =====
     const introLeft = document.querySelector('.intro-left');
     const introRight = document.querySelector('.intro-right');
@@ -425,5 +426,107 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         `;
         document.head.appendChild(style);
+    }
+});
+
+// File: about-sliding-underline-revised.js
+// Animasi garis bawah judul "About" yang bergerak bolak-balik sebatas teks
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Temukan elemen judul "About"
+    const aboutTitle = document.querySelector('.section-title h2');
+    
+    // Jika elemen ditemukan
+    if (aboutTitle) {
+        // Dapatkan elemen parent untuk posisi relatif
+        const titleContainer = aboutTitle.closest('.section-title');
+        
+        // Ukur lebar teks untuk batasan pergerakan
+        const textWidth = aboutTitle.offsetWidth;
+        
+        // Buat container untuk menjadi batas area garis bergerak
+        const underlineContainer = document.createElement('div');
+        underlineContainer.className = 'underline-container';
+        
+        // Hapus pseudo-element asli dengan menambahkan kelas baru
+        titleContainer.classList.add('custom-underline');
+        
+        // Tempatkan container di bawah judul, dengan lebar tepat seperti teks
+        underlineContainer.style.width = textWidth + 'px';
+        titleContainer.appendChild(underlineContainer);
+        
+        // Buat elemen garis baru untuk dianimasikan
+        const underline = document.createElement('div');
+        underline.className = 'sliding-underline';
+        
+        // Tambahkan garis ke dalam container
+        underlineContainer.appendChild(underline);
+        
+        // Tambahkan CSS untuk animasi
+        const style = document.createElement('style');
+        style.textContent = `
+            /* Hilangkan garis asli */
+            .custom-underline h2::after {
+                display: none !important;
+            }
+            
+            /* Container dengan posisi relatif */
+            .section-title {
+                position: relative;
+            }
+            
+            /* Container untuk batas gerak garis (sebatas teks) */
+            .underline-container {
+                position: absolute;
+                height: 3px;
+                bottom: -10px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: transparent;
+                overflow: hidden;
+            }
+            
+            /* Garis yang bergerak */
+            .sliding-underline {
+                position: absolute;
+                width: 70px;
+                height: 3px;
+                background: #FF5E69;
+                bottom: 0;
+                left: 0;
+                
+                /* Mulai animasi */
+                animation: slideUnderline 4s ease-in-out infinite;
+            }
+            
+            /* Animasi garis bergeser dari kiri ke kanan dan kembali */
+            @keyframes slideUnderline {
+                0%, 100% {
+                    left: 0;
+                }
+                
+                50% {
+                    left: calc(100% - 70px);
+                }
+            }
+        `;
+        
+        document.head.appendChild(style);
+        
+        // Tambahkan observer untuk reset animasi saat scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Reset dan mulai animasi
+                    underline.style.animation = 'none';
+                    void underline.offsetWidth; // Force reflow
+                    underline.style.animation = 'slideUnderline 4s ease-in-out infinite';
+                }
+            });
+        }, {
+            threshold: 0.5
+        });
+        
+        observer.observe(titleContainer);
     }
 });
