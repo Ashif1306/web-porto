@@ -461,21 +461,21 @@ body.has-fixed-header {
 }
 
 .item1 {
-    background-image: url("img/blogerku.svg");
+    background-image: url("img/tampilanbloger.webp");
     grid-column: 1;
     grid-row: 1 / span 2;
     height: 500px;
 }
 
 .item2 {
-    background-image: url('img/230907501003_MuhAshif_Qoute.png');
+    background-image: url('img/230907501003_MuhAshif_Qoute.webp');
     grid-column: 2;
     grid-row: 1;
     height: 240px;
 }
 
 .item3 {
-    background-image: url('img/230907501003_MuhAshif_Qoute2.png');
+    background-image: url('img/230907501003_MuhAshif_Qoute2.webp');
     grid-column: 2;
     grid-row: 2;
     height: 240px;
