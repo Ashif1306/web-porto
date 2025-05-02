@@ -1,4 +1,4 @@
-/* Global Styles */
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 :root {
@@ -63,7 +63,6 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--highlight-orange);
 }
 
-/* Button Styles */
 .btn {
     display: inline-block;
     padding: 10px 20px;
@@ -78,7 +77,6 @@ h1, h2, h3, h4, h5, h6 {
     color: white;
 }
 
-/* Header Styles */
 header {
     display: flex;
     justify-content: space-between;
@@ -122,7 +120,6 @@ nav ul li a:hover::after {
     left: 0;
 }
 
-/* Blog Hero Section */
 .blog-hero {
     padding: 70px 5%;
     text-align: center;
@@ -139,7 +136,7 @@ nav ul li a:hover::after {
     margin-bottom: 20px;
 }
 
-/* Featured Articles Section */
+
 .featured-articles {
     padding: 20px 5% 50px;
 }
@@ -237,7 +234,7 @@ nav ul li a:hover::after {
     color: var(--medium-gray);
 }
 
-/* Skills Banner */
+
 .skills-banner {
     display: flex;
     overflow: hidden;
@@ -258,7 +255,6 @@ nav ul li a:hover::after {
     margin-right: 10px;
 }
 
-/* Recent Insights Section */
 .recent-insights {
     padding: 70px 5%;
     max-width: 1200px;
@@ -351,7 +347,6 @@ nav ul li a:hover::after {
     color: var(--medium-gray);
 }
 
-/* CTA Section */
 .cta {
     padding: 70px 5%;
     text-align: left;
@@ -394,7 +389,6 @@ nav ul li a:hover::after {
     transform: translateX(10px);
 }
 
-/* Footer */
 footer {
     background-color: white;
     padding: 50px 5% 20px;
@@ -443,7 +437,6 @@ footer {
     color: white;
 }
 
-/* Media Queries for Responsiveness */
 @media (max-width: 992px) {
     nav ul {
         display: none;
@@ -507,7 +500,7 @@ footer {
         gap: 16px;
         list-style: none;
         padding: 0;
-        justify-content: center; /* agar di tengah */
+        justify-content: center; 
         flex-wrap: wrap;
     }
     
@@ -516,7 +509,7 @@ footer {
         gap: 15px;
     }
 }
-/* Styles for clickable article cards */
+
 .clickable-card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
@@ -548,13 +541,11 @@ footer {
     transform: translateY(-2px);
 }
 
-/* Make sure all elements inside the cards remain visible on hover */
 .article-card *, .blog-item * {
     position: relative;
     z-index: 2;
 }
 
-/* Add a subtle indicator that the card is clickable */
 .article-card::before, .blog-item::before {
     content: '';
     position: absolute;

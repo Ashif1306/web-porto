@@ -19,7 +19,7 @@
     bottom: -10px;
     left: 50%;
     transform: translateX(-50%);
-}/* Global Styles */
+}
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 :root {
@@ -71,7 +71,6 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 1.2;
 }
 
-/* Button Styles */
 .btn {
     display: inline-block;
     padding: 10px 20px;
@@ -86,8 +85,7 @@ h1, h2, h3, h4, h5, h6 {
     color: white;
 }
 
-/* Header Styles */
-/* Header Styles yang konsisten */
+
 header {
     display: flex;
     justify-content: space-between;
@@ -133,7 +131,7 @@ nav ul li a:hover::after {
     bottom: -5px;
     left: 0;
 }
-/* Header tetap saat scroll */
+
 header.fixed-header {
     position: fixed;
     top: 0;
@@ -153,7 +151,7 @@ header.fixed-header {
 body.has-fixed-header {
     padding-top: 80px;
 }
-/* Intro Section */
+
 .intro {
     padding: 50px 5% 70px;
     background-color: #f8f9fa;
@@ -278,7 +276,7 @@ body.has-fixed-header {
     overflow: hidden;
 }
 
-/* Stats Section */
+
 .stats {
     display: flex;
     justify-content: space-around;

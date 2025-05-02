@@ -54,8 +54,6 @@ h1, h2, h3, h4, h5, h6 {
 .highlight {
     color: var(--highlight);
 }
-
-/* Button Styles */
 .btn {
     display: inline-block;
     padding: 12px 25px;
@@ -82,7 +80,6 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Header Styles */
 header {
     display: flex;
     justify-content: space-between;
@@ -129,29 +126,27 @@ nav ul li a:hover::after {
     left: 0;
 }
 
-/* Services Hero Section */
 .services-hero {
-    padding: 40px 5% 10px; /* Mengurangi padding dari 70px 5% 30px menjadi 40px 5% 10px */
+    padding: 40px 5% 10px; 
 }
 
 .services-header {
     max-width: 1200px;
     margin: 0 auto;
-    margin-bottom: 20px; /* Mengurangi margin bottom dari default menjadi 20px */
+    margin-bottom: 20px;
 }
 
 .services-header h1 {
     font-size: 3.5rem;
     font-weight: 700;
-    margin-bottom: 5px; /* Mengurangi margin bottom dari 20px menjadi 10px */
+    margin-bottom: 5px; 
 }
 
-/* Service Item Section */
 .service-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 5%; /* Mengurangi padding dari 70px 5% menjadi 40px 5% */
+    padding: 10px 5%; 
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -194,7 +189,6 @@ nav ul li a:hover::after {
     transform: scale(1.03);
 }
 
-/* Page Divider */
 .page-divider {
     height: 1px;
     background-color: #ddd;
@@ -202,7 +196,6 @@ nav ul li a:hover::after {
     margin: 20px auto 40px;
 }
 
-/* Footer */
 footer {
     background-color: white;
     padding: 50px 5% 20px;
@@ -250,7 +243,6 @@ footer {
     color: white;
 }
 
-/* Media Queries for Responsiveness */
 @media (max-width: 992px) {
     nav ul {
         display: none;
@@ -262,7 +254,7 @@ footer {
     
     .service-item {
         flex-direction: column;
-        padding: 30px 5%; /* Mengurangi padding dari 50px 5% menjadi 30px 5% */
+        padding: 30px 5%; 
     }
     
     .service-item.reverse {
@@ -300,7 +292,7 @@ footer {
     }
     
     .services-hero {
-        padding: 30px 5% 0; /* Mengurangi padding lagi untuk mobile */
+        padding: 30px 5% 0; 
     }
     
     .footer-top {
@@ -314,7 +306,7 @@ footer {
         gap: 16px;
         list-style: none;
         padding: 0;
-        justify-content: center; /* agar di tengah */
+        justify-content: center; 
         flex-wrap: wrap;
     }
     
@@ -325,7 +317,7 @@ footer {
     }
 }
 
-/* Specific adjustment to align content with images */
+
 @media (min-width: 993px) {
     .service-content.left {
         padding-left: 0;
@@ -337,12 +329,12 @@ footer {
         padding-right: 0;
     }
     
-    /* Align text with hand level */
+    
     .service-content h2 {
-        padding-top: 30px; /* Mengurangi padding top dari 40px menjadi 30px */
+        padding-top: 30px; /
     }
     
-    /* Align button with waist level */
+    
     .service-content .btn {
         margin-top: 30px;
     }

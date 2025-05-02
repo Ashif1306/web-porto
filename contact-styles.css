@@ -1,4 +1,4 @@
-/* Global Styles */
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 :root {
@@ -58,7 +58,6 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--highlight-orange);
 }
 
-/* Button Styles */
 .btn {
     display: inline-block;
     padding: 12px 30px;
@@ -81,7 +80,7 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Header Styles */
+
 header {
     display: flex;
     justify-content: space-between;
@@ -128,7 +127,6 @@ nav ul li a:hover::after {
     left: 0;
 }
 
-/* Contact Section */
 .contact-section {
     padding: 70px 5%;
     margin-bottom: 20px;
@@ -257,7 +255,7 @@ nav ul li a:hover::after {
     margin-top: 10px;
 }
 
-/* FAQ Section */
+
 .faq-section {
     padding: 70px 5%;
 }
@@ -332,7 +330,7 @@ nav ul li a:hover::after {
     display: block;
 }
 
-/* Page Divider */
+
 .page-divider {
     height: 1px;
     background-color: #ddd;
@@ -340,7 +338,7 @@ nav ul li a:hover::after {
     margin: 20px auto 40px;
 }
 
-/* Footer */
+
 footer {
     background-color: white;
     padding: 50px 5% 20px;
@@ -388,7 +386,6 @@ footer {
     color: white;
 }
 
-/* Media Queries for Responsiveness */
 @media (max-width: 992px) {
     nav ul {
         display: none;
@@ -479,7 +476,7 @@ footer {
         gap: 16px;
         list-style: none;
         padding: 0;
-        justify-content: center; /* agar di tengah */
+        justify-content: center;
         flex-wrap: wrap;
     }
     
@@ -490,29 +487,25 @@ footer {
     }
 }
 
-/* Specific adjustment to align content properly */
 @media (min-width: 993px) {
-    /* Align text with hand level */
+
     .contact-info {
         padding-top: 40px;
     }
-    
-    /* Align button with waist level */
+
     .contact-details {
         margin-top: 80px;
     }
     
-    /* Adjust FAQs position */
     .contact-button-container {
         margin-top: 30px;
     }
 }
-/* Perbaikan jarak antara navbar dan judul halaman */
+
 body {
-    padding-top: 80px; /* Sesuaikan dengan tinggi header */
+    padding-top: 80px; 
 }
 
-/* Pengaturan untuk halaman About */
 .section-title {
     margin-top: 0;
     padding-top: 10px;

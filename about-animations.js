@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const introRight = document.querySelector('.intro-right');
     
     if (introLeft && introRight) {
-        // Observer untuk elemen intro
         const introObserver = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
@@ -17,18 +16,16 @@ document.addEventListener('DOMContentLoaded', function() {
             rootMargin: '0px',
             threshold: 0.2
         });
-        
-        // Siapkan animasi untuk judul (dari kiri)
+
         introLeft.style.opacity = '0';
         introLeft.style.transform = 'translateX(-50px)';
         introObserver.observe(introLeft);
-        
-        // Siapkan animasi untuk deskripsi (dari kanan)
+
         introRight.style.opacity = '0';
         introRight.style.transform = 'translateX(50px)';
         introObserver.observe(introRight);
     }
-    // ===== ANIMASI UNTUK GALLERY FOTO =====
+
     const galleryItems = document.querySelectorAll('.gallery-item');
     
     if (galleryItems.length > 0) {

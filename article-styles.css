@@ -1,4 +1,4 @@
-/* Gaya untuk Pop-up Artikel */
+
 .artikel-popup {
     position: fixed;
     top: 0;
@@ -119,7 +119,6 @@
     font-size: 1.05rem;
 }
 
-/* Animasi saat pop-up muncul dan menghilang */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -138,7 +137,7 @@
     animation: slideIn 0.5s forwards;
 }
 
-/* Gaya untuk kategori artikel dalam pop-up */
+
 .artikel-popup .category {
     display: inline-block;
     padding: 3px 10px;

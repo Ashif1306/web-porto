@@ -17,7 +17,7 @@
     padding: 0;
     box-sizing: border-box;
 }
-/* Gradient Text Effect */
+
 .gradient-text {
     background: linear-gradient(to right, #B16CEA, #FF5E69, #FF8A56, #FFA84B);
     -webkit-background-clip: text;
@@ -53,7 +53,7 @@ img {
     max-width: 100%;
 }
 
-/* Button Styles */
+
 .btn {
     display: inline-block;
     padding: 10px 20px;
@@ -77,8 +77,8 @@ img {
 .btn-outline {
     border: 1px solid #ddd;
     color: var(--text-color);
-    transition: all 0.3s ease; /* Transisi yang lebih halus */
-    position: relative; /* Pastikan posisi relatif */
+    transition: all 0.3s ease; 
+    position: relative; 
     background-color: transparent;
 }
 
@@ -104,8 +104,6 @@ img {
     transform: translateX(10px);
 }
 
-/* Header Styles */
-/* Header Styles yang konsisten */
 header {
     display: flex;
     justify-content: space-between;
@@ -157,7 +155,6 @@ nav ul li a:hover::after {
     left: 0;
 }
 
-/* Header tetap saat scroll */
 header.fixed-header {
     position: fixed;
     top: 0;
@@ -177,7 +174,6 @@ header.fixed-header {
 body.has-fixed-header {
     padding-top: 80px;
 }
-/* Hero Section */
 .hero {
     padding: 50px 5%;
     background-color: #f8f9fa;
@@ -231,25 +227,23 @@ body.has-fixed-header {
     width: 40%;
     text-align: center;
     display: inline-block;
-    margin: 0 0.5rem;
-
-    animation: bouncezoomInRight; /* referring directly to the animation's @keyframe declaration */
-    animation-duration: 2s; /* don't forget to set a duration! */
+    margin:  0.5rem;
+    animation: bouncezoomInRight; 
+    animation-duration: 2s; 
 }
 
 .hero-image img {
-    max-width: 60%; /* Reduced from 80% to 60% */
+    max-width: 55%; 
     border-radius: 5px;
     background-color: var(--dark-color);
     padding: 5px;
     display: inline-block;
-    margin: 0 0.5rem;
-
-    animation: backInRight; /* referring directly to the animation's @keyframe declaration */
-    animation-duration: 3s; /* don't forget to set a duration! */
+    margin:  0.5rem;
+    animation: backInRight; 
+    animation-duration: 3s; 
 }
 
-/* Skills Banner */
+
 .skills-banner {
     display: flex;
     overflow: hidden;
@@ -270,7 +264,7 @@ body.has-fixed-header {
     margin-right: 10px;
 }
 
-/* Projects Section */
+
 .projects {
     padding: 70px 5%;
 }
@@ -341,7 +335,6 @@ body.has-fixed-header {
     gap: 10px;
 }
 
-/* About Me Section */
 .about-me {
     padding: 70px 5%;
     padding-bottom: 20px;
@@ -440,7 +433,7 @@ body.has-fixed-header {
     font-weight: normal;
 }
 
-/* Gallery Section */
+
 .gallery {
     padding: 0 5% 70px;
 }
@@ -508,7 +501,6 @@ body.has-fixed-header {
     }
 }
 
-/* Skills Section */
 .skills {
     padding: 70px 5%;
     background-color: #f8f9fa;
@@ -556,8 +548,8 @@ body.has-fixed-header {
     text-align: left;
     display: inline-block;
     margin: 0 0.5rem;  
-    animation: jackInTheBox; /* referring directly to the animation's @keyframe declaration */
-    animation-duration: 10s; /* don't forget to set a duration! */
+    animation: jackInTheBox; 
+    animation-duration: 10s; 
       }
 
 .animate__animated h2 {
@@ -567,7 +559,6 @@ body.has-fixed-header {
     margin-bottom: 30px;
 }
 
-/* Footer */
 footer {
     background-color: white;
     padding: 50px 5% 20px;
@@ -615,7 +606,6 @@ footer {
     color:white;
 }
 
-/* Media Queries for Responsiveness */
 @media (max-width: 768px) {
     nav ul {
         display: none;
@@ -686,7 +676,6 @@ footer {
         justify-content: center;
     }
     
-    /* Ini adalah style baru untuk memusatkan kata "Hello" pada mobile */
     .hero-text h1 .gradient-text:first-of-type {
         display: block;
         text-align: center;
@@ -724,7 +713,6 @@ footer {
         width: 100%;
     }
     
-    /* Gallery responsive adjustments */
     .gallery-grid {
         grid-template-columns: 1fr;
         grid-template-rows: repeat(3, auto);
@@ -763,7 +751,7 @@ footer {
         gap: 16px;
         list-style: none;
         padding: 0;
-        justify-content: center; /* agar di tengah */
+        justify-content: center;
         flex-wrap: wrap;
     }
     
@@ -901,14 +889,14 @@ footer {
   .hero-buttons a:nth-child(2):hover,
 a[href*="works"]:hover {
     background-color: rgba(0, 0, 0, 0.05);
-    border-color: var(--dark-color); /* Tetap pertahankan border */
+    border-color: var(--dark-color); 
     color: var(--dark-color);
   }
   @media (max-width: 768px) {
     .btn {
-      padding: 12px 20px; /* Padding yang lebih nyaman untuk disentuh */
-      font-size: 1rem; /* Ukuran teks yang lebih mudah dibaca */
-      width: 100%; /* Tombol mengisi ruang yang tersedia */
-      max-width: 250px; /* Batasi lebar maksimum */
+      padding: 12px 20px; 
+      font-size: 1rem; 
+      width: 100%;
+      max-width: 250px; 
     }
 }
