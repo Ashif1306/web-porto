@@ -39,8 +39,8 @@ body {
 .capsule-nav__inner {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 12px;
+    justify-content: flex-start;
+    gap: 6px;
     background: var(--navbar-bg);
     border-radius: 60px;
     padding: 8px 16px;
@@ -59,15 +59,16 @@ body {
 .capsule-nav__logo {
     display: flex;
     align-items: center;
-    margin-right: 8px;
+    margin-right: 6px;
     flex-shrink: 0;
     text-decoration: none;
 }
 
 .capsule-nav__logo img {
-    height: 26px;
+    height: 32px;
     width: auto;
-    filter: brightness(0) invert(1);
+    object-fit: contain;
+    filter: none;
     transition: transform 0.3s ease;
 }
 
@@ -82,7 +83,7 @@ body {
     list-style: none;
     margin: 0;
     padding: 0;
-    gap: 2px;
+    gap: 8px;
     flex: 1;
     justify-content: center;
 }
@@ -90,7 +91,7 @@ body {
 .capsule-nav__actions {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     flex-shrink: 0;
 }
 
@@ -156,25 +157,6 @@ body {
 
 .capsule-nav__link.active::after {
     display: none;
-}
-
-/* Contact link â€” accent style */
-.capsule-nav__link--contact {
-    background: linear-gradient(135deg, #B16CEA, #FF5E69);
-    color: white !important;
-    font-weight: 600;
-}
-
-.capsule-nav__link--contact:hover {
-    background: linear-gradient(135deg, #c084f5, #ff7a83);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 15px rgba(177, 108, 234, 0.4);
-}
-
-.capsule-nav__link--contact.active {
-    background: linear-gradient(135deg, #B16CEA, #FF5E69);
-    color: white !important;
-    box-shadow: 0 4px 15px rgba(177, 108, 234, 0.5);
 }
 
 /* --- Hamburger (mobile only) --- */
@@ -471,6 +453,48 @@ body.dark-mode .skills,
 body.dark-mode .onepage-section {
     background-color: var(--page-bg);
     color: var(--text-color);
+}
+
+/* About section specific background overrides in dark mode */
+body.dark-mode .about-section,
+body.dark-mode .about-section .intro,
+body.dark-mode .about-section .intro-content,
+body.dark-mode .about-section .intro-gallery,
+body.dark-mode .about-me,
+body.dark-mode .education-work,
+body.dark-mode .follow-me,
+body.dark-mode .skills-banner {
+    background-color: var(--page-bg);
+}
+
+/* Global typography overrides for dark mode so all teks tetap terbaca */
+body.dark-mode p,
+body.dark-mode li,
+body.dark-mode span,
+body.dark-mode .blog-author,
+body.dark-mode .timeline-year,
+body.dark-mode .timeline-content p,
+body.dark-mode .intro-right p,
+body.dark-mode .projects-header p,
+body.dark-mode .client-challenge > p,
+body.dark-mode .flowchart p,
+body.dark-mode .statistica > p,
+body.dark-mode .recent-insights p,
+body.dark-mode .contact-info p,
+body.dark-mode .faq-container > p,
+body.dark-mode .faq-answer,
+body.dark-mode .article-author,
+body.dark-mode .blog-author {
+    color: rgba(245, 245, 245, 0.78);
+}
+
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6 {
+    color: #ffffff;
 }
 
 body.dark-mode .project-card,
