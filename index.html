@@ -4,176 +4,753 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ashif - Junior Web Developer</title>
+    <!-- Unified CSS -->
     <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome & Animate.css -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="navigation-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <!-- Favicon -->
     <link rel="icon" href="img/faviconnamanya.svg" type="image/favicon"/>
-
 </head>
 <body>
     <div class="overlay"></div>
-    <header>
-        <div class="logo">
-            <img src="Black Modern Minimalist Letter A Logo.png" alt="Logo Ashif, Junior Web Developer">
-        </div>
-        <nav>
-            <ul>
-                <li><a href="index.html" class="active" aria-label="Homepage">Home</a></li>
-                <li><a href="about.html" aria-label="About Page">About</a></li>
-                <li><a href="portofolio.html" aria-label="Portfolio Page">Portfolio</a></li>
-                <li><a href="blog.html" aria-label="Blog Page">Blog</a></li>
-                <li><a href="service.html" aria-label="Services Page">Service</a></li>
+
+    <!-- ========== FLOATING CAPSULE NAVBAR ========== -->
+    <nav id="capsule-nav" class="capsule-nav">
+        <div class="capsule-nav__inner">
+            <a href="#home" class="capsule-nav__logo">
+                <img src="Black Modern Minimalist Letter A Logo.png" alt="Logo Ashif">
+            </a>
+            <ul class="capsule-nav__links">
+                <li><a href="#home" class="capsule-nav__link active">Home</a></li>
+                <li><a href="#about" class="capsule-nav__link">About</a></li>
+                <li><a href="#portfolio" class="capsule-nav__link">Portfolio</a></li>
+                <li><a href="#services" class="capsule-nav__link">Service</a></li>
+                <li><a href="#blog" class="capsule-nav__link">Blog</a></li>
             </ul>
-        </nav>
-        <div class="cta-button">
-            <a href="contact.html" class="btn btn-dark" aria-label="Contact page">LET'S TALK</a>
+            <div class="capsule-nav__actions">
+                <a href="#contact" class="capsule-nav__link capsule-nav__link--contact">Contact</a>
+                <button class="theme-toggle" aria-label="Toggle dark mode" type="button">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="capsule-nav__hamburger" aria-label="Toggle menu" type="button">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
         </div>
-    </header>
+    </nav>
 
-    <section class="hero">
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1>
-                    <span class="gradient-text">Hello,</span><br>
-                    <span class="gradient-text">I'm Ashif,</span> Junior <br>Web Developer in <br>Indonesia.
-                </h1>
-                <p>Selamat datang di website portofolio saya! Di sini saya berbagi perjalanan dan pengalaman saya dalam dunia bisnis digital. Saya berkomitmen untuk membantu bisnis berkembang dan mencapai tujuan melalui solusi digital yang kreatif dan efektif. Jelajahi proyek-proyek yang telah saya kerjakan dan temukan bagaimana kita bisa bekerja sama untuk membawa bisnis Anda ke level berikutnya.</p>
-                <div class="hero-buttons">
-                    <a href="https://wa.me/6282246715501" class="btn btn-primary">GET IN TOUCH</a>
-                    <a href="contact.html" class="btn btn-outline">VIEW ALL WORKS</a>
-                    
+    <!-- ╔══════════════════════════════════════════╗
+         ║  SECTION 1 — HOME                        ║
+         ╚══════════════════════════════════════════╝ -->
+    <section id="home" class="onepage-section home-section">
+
+        <div class="hero">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>
+                        <span class="gradient-text">Hello,</span><br>
+                        <span class="gradient-text">I'm Ashif,</span> Junior <br>Web Developer in <br>Indonesia.
+                    </h1>
+                    <p>Selamat datang di website portofolio saya! Di sini saya berbagi perjalanan dan pengalaman saya dalam dunia bisnis digital. Saya berkomitmen untuk membantu bisnis berkembang dan mencapai tujuan melalui solusi digital yang kreatif dan efektif. Jelajahi proyek-proyek yang telah saya kerjakan dan temukan bagaimana kita bisa bekerja sama untuk membawa bisnis Anda ke level berikutnya.</p>
+                    <div class="hero-buttons">
+                        <a href="https://wa.me/6282246715501" class="btn btn-primary">GET IN TOUCH</a>
+                        <a href="#portfolio" class="btn btn-outline">VIEW ALL WORKS</a>
+                    </div>
                 </div>
-                
-            </div>
-            <div class="hero-image">
-                <img src="Foto (3).webp" alt="Ashif's Photo">
+                <div class="hero-image">
+                    <img src="Foto (3).webp" alt="Ashif's Photo">
+                </div>
             </div>
         </div>
-    </section>
 
-    <div class="skills-banner">
-        <div class="skill-item"><i class="fas fa-pencil-alt"></i> Design</div>
-        <div class="skill-item"><i class="fas fa-code"></i> Develop</div>
-        <div class="skill-item"><i class="fas fa-search"></i> Discover</div>
-        <div class="skill-item"><i class="fas fa-pencil-alt"></i> Design</div>
-        <div class="skill-item"><i class="fas fa-code"></i> Develop</div>
-        <div class="skill-item"><i class="fas fa-search"></i> Discover</div>
-    </div>
+        <div class="skills-banner">
+            <div class="skill-item"><i class="fas fa-pencil-alt"></i> Design</div>
+            <div class="skill-item"><i class="fas fa-code"></i> Develop</div>
+            <div class="skill-item"><i class="fas fa-search"></i> Discover</div>
+            <div class="skill-item"><i class="fas fa-pencil-alt"></i> Design</div>
+            <div class="skill-item"><i class="fas fa-code"></i> Develop</div>
+            <div class="skill-item"><i class="fas fa-search"></i> Discover</div>
+        </div>
 
-    <section class="animate__animated animate__lightSpeedInRight">
-        <h2>Selected Projects</h2>
-        <p>I do deep market research before starting any project that gives an unfair advantage to bring the best result for client.</p>
-        
-        <div class="project-cards">
-            <div class="project-card">
-                <img src="img/Screenshot (91).webp" alt="Dashboard Project Overview">
-                <div class="project-overlay">
-                    <h3>DASHBOARD</h3>
-                    <p>Data Science</p>
-                    <div class="project-buttons">
-                        <a href="portofolio.html" class="btn btn-small" aria-label="View dashboard project">View</a>
-                        <a href="portofolio.html" class="btn btn-small" aria-label="See dashboard project details">Details</a>
+        <div class="home-projects" style="padding: 70px 5%;">
+            <h2 style="font-size:2rem; color:var(--highlight-pink); margin-bottom:15px;">Selected Projects</h2>
+            <p style="max-width:700px; margin-bottom:40px; color:#666;">I do deep market research before starting any project that gives an unfair advantage to bring the best result for client.</p>
+            <div class="project-cards">
+                <div class="project-card">
+                    <img src="img/Screenshot (91).webp" alt="Dashboard Project Overview">
+                    <div class="project-overlay">
+                        <h3>DASHBOARD</h3>
+                        <p>Data Science</p>
+                        <div class="project-buttons">
+                            <a href="#portfolio" class="btn btn-small" aria-label="View dashboard project">View</a>
+                            <a href="#portfolio" class="btn btn-small" aria-label="See dashboard project details">Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="img/Screenshot (90).webp" alt="Analytics Project">
+                    <div class="project-overlay">
+                        <h3>ANALYTICS</h3>
+                        <p>Data Visualization</p>
+                        <div class="project-buttons">
+                            <a href="#portfolio" class="btn btn-small">View</a>
+                            <a href="#portfolio" class="btn btn-small">Details</a>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="project-card">
-                <img src="img/Screenshot (90).webp" alt="Analytics Project">
-                <div class="project-overlay">
-                    <h3>ANALYTICS</h3>
-                    <p>Data Visualization</p>
-                    <div class="project-buttons">
-                        <a href="portofolio.html" class="btn btn-small">View</a>
-                        <a href="portofolio.html" class="btn btn-small">Details</a>
+        </div>
+
+        <div class="about-me">
+            <div class="about-left">
+              <h4>Muh Ashif</h4>
+              <h2>Creative UI/UX Designer</h2>
+            </div>
+            <div class="about-middle">
+              <p>
+                Menampilkan berbagai proyek inovatif, solusi kreatif, dan pengalaman dalam
+                membangun desain serta teknologi digital yang berdampak.
+                Menampilkan berbagai proyek inovatif, solusi kreatif, dan pengalaman dalam
+                membangun desain serta teknologi digital yang berdampak.
+              </p>
+            </div>
+            <div class="about-right">
+                <div class="stat">
+                    <div class="stat-label">Projects Done</div>
+                    <div class="stat-value">15+</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Experience</div>
+                    <div class="stat-value">7+ Years</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Clients Satisfaction</div>
+                    <div class="stat-value">100%</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="gallery">
+            <div class="gallery-grid">
+                <div class="gallery-item item1"></div>
+                <div class="gallery-item item2"></div>
+                <div class="gallery-item item3"></div>
+            </div>
+        </div>
+
+        <div class="skills">
+            <h2>What I do.</h2>
+            <div class="skills-grid">
+                <div class="skill-icon">
+                    <img src="img/png-transparent-figma-logo-brand-logos-brands-in-colors-icon-thumbnail-removebg-preview.svg" alt="Figma Design Tool">
+                    <p>Figma</p>
+                </div>
+                <div class="skill-icon">
+                    <img src="img/Microsoft_Excel-Logo.wine.svg" alt="Excel Design Tool">
+                    <p>Excel</p>
+                </div>
+                <div class="skill-icon">
+                    <img src="img/html.svg" alt="HTML logo design">
+                    <p>HTML</p>
+                </div>
+                <div class="skill-icon">
+                    <img src="img/css.svg" alt="css design tool">
+                    <p>CSS</p>
+                </div>
+                <div class="skill-icon">
+                    <img src="img/canva.webp" alt="Canva logo design">
+                    <p>Canva</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="padding: 100px 5%; text-align: left;">
+            <h2 style="font-size:50px; line-height:1.2; max-width:1300px; margin-bottom:30px;">See the impact of good, conversion-oriented design on your business.</h2>
+            <a href="#contact" class="btn btn-arrow">Let's Work Together <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+    </section>
+
+    <!-- ╔══════════════════════════════════════════╗
+         ║  SECTION 2 — ABOUT                       ║
+         ╚══════════════════════════════════════════╝ -->
+    <section id="about" class="onepage-section about-section">
+
+        <div class="section-divider"></div>
+
+        <div class="intro">
+            <div class="section-title">
+                <h2>About</h2>
+            </div>
+            <div class="intro-content">
+                <div class="intro-left">
+                    <h1>Hi, I am<br>Muh Ashif</h1>
+                </div>
+                <div class="intro-right">
+                    <p>Halo! Saya Muh Ashif, lahir di Enrekang dan saat ini sedang menempuh pendidikan sebagai mahasiswa Program Studi Bisnis Digital. Saya memiliki ketertarikan yang kuat pada inovasi digital, kewirausahaan, dan pengembangan solusi berbasis teknologi yang dapat memberikan dampak nyata dalam kehidupan sehari-hari.
+
+                        Dengan latar belakang di bidang bisnis digital, saya terbiasa berpikir strategis, kreatif, dan adaptif terhadap perkembangan teknologi. Portofolio ini saya buat sebagai wadah untuk menampilkan perjalanan, pengalaman, serta karya-karya saya di bidang yang saya tekuni. Saya percaya bahwa kolaborasi dan pembelajaran berkelanjutan adalah kunci untuk menciptakan masa depan yang lebih baik melalui teknologi.</p>
+                </div>
+            </div>
+            <div class="intro-gallery">
+                <div class="gallery-grid about-gallery-grid">
+                    <div class="gallery-item profile">
+                        <img src="about foto/fotoku9.jpg" alt="Muh Ashif Profile">
+                    </div>
+                    <div class="gallery-item work-1">
+                        <img src="about foto/fotoku1.jpg" alt="Working on laptop">
+                    </div>
+                    <div class="gallery-item work-2">
+                        <img src="about foto/fotoku2.jpg" alt="Working with team">
+                    </div>
+                    <div class="gallery-item work-3">
+                        <img src="about foto/fotoku4.jpg" alt="Drawing designs">
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="skills-banner">
+            <div class="skill-item"><i class="fas fa-pencil-alt"></i> Design</div>
+            <div class="skill-item"><i class="fas fa-code"></i> Develop</div>
+            <div class="skill-item"><i class="fas fa-search"></i> Discover</div>
+            <div class="skill-item"><i class="fas fa-pencil-alt"></i> Design</div>
+            <div class="skill-item"><i class="fas fa-code"></i> Develop</div>
+            <div class="skill-item"><i class="fas fa-search"></i> Discover</div>
+        </div>
+
+        <div class="education-work">
+            <div class="education">
+                <h2>Education</h2>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>UNIVERSITAS NEGERI MAKASSAR</h3>
+                        <p>Mahasiswa Prodi Bisnis Digital</p>
+                    </div>
+                    <div class="timeline-year">
+                        <p>• 2023-now</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>SMKN 1 ENREKANG</h3>
+                        <p>Siswa</p>
+                    </div>
+                    <div class="timeline-year">
+                        <p>• 2020-2023</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>MTS BUNTU BARANA</h3>
+                        <p>Siswa</p>
+                    </div>
+                    <div class="timeline-year">
+                        <p>• 2017-2020</p>
+                    </div>
+                </div>
+            </div>
+            <div class="work">
+                <h2>Work Experience</h2>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>SwitchEase</h3>
+                        <p>Project Digital Marketing</p>
+                    </div>
+                    <div class="timeline-year">
+                        <p>• 2024</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>ICT Center UNM</h3>
+                        <p>Magang SMK</p>
+                    </div>
+                    <div class="timeline-year">
+                        <p>• 2022</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Scout Pramuka MtsBunbar</h3>
+                        <p>Tingkat SMP/MTS</p>
+                    </div>
+                    <div class="timeline-year">
+                        <p>• 2018</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="follow-me">
+            <div class="follow-me-container">
+                <div class="follow-image">
+                    <img src="about foto/fotoku3.jpg" alt="Muh Ashif">
+                </div>
+                <div class="follow-content">
+                    <h2>Follow me</h2>
+                    <p>I'm Muh Ashif, a designer who works with startups to build brands.</p>
+                    <div class="social-media-links">
+                        <a href="https://www.facebook.com/share/168btxdiny/?mibextid=qi2Omg" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.linkedin.com/in/muh-ashif-1b730a361/" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://x.com/Muh_Ashif13?t=6SU6s9K-NtU6wE1NRkJeqQ&s=09" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/chipo574_" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@asiiiippppp?_t=ZS-8vgiwbNmVRo&_r=1" class="social-link"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </section>
 
-    <section class="about-me">
-        <div class="about-left">
-          <h4>Muh Ashif</h4>
-          <h2>Creative UI/UX Designer</h2>
-        </div>
-        <div class="about-middle">
-          <p>
-            Menampilkan berbagai proyek inovatif, solusi kreatif, dan pengalaman dalam
-            membangun desain serta teknologi digital yang berdampak.
-            Menampilkan berbagai proyek inovatif, solusi kreatif, dan pengalaman dalam
-            membangun desain serta teknologi digital yang berdampak.
-          </p>
-        </div>
-        <div class="about-right">
-            <div class="stat">
-                <div class="stat-label">Projects Done</div>
-                <div class="stat-value">15+</div>
-            </div>
-            <div class="stat">
-                <div class="stat-label">Experience</div>
-                <div class="stat-value">7+ Years</div>
-            </div>
-            <div class="stat">
-                <div class="stat-label">Clients Satisfaction</div>
-                <div class="stat-value">100%</div>
-            </div>
-        </div>
-        
-      </section>
-      
+    <!-- ╔══════════════════════════════════════════╗
+         ║  SECTION 3 — PORTFOLIO                   ║
+         ╚══════════════════════════════════════════╝ -->
+    <section id="portfolio" class="onepage-section portfolio-section">
 
-    <section class="gallery">
-        <div class="gallery-grid">
-            <div class="gallery-item item1"></div>
-            <div class="gallery-item item2"></div>
-            <div class="gallery-item item3"></div>
+        <div class="section-divider"></div>
+
+        <div class="projects-intro">
+            <div class="projects-header">
+                <h1>Look at My <span class="highlight">Projects.</span></h1>
+                <p>Berikut adalah beberapa proyek pilihan yang telah saya kerjakan dalam bidang desain dan pengembangan web. Setiap proyek mencerminkan pendekatan kreatif dan teknis saya dalam menyelesaikan tantangan digital. Silakan telusuri untuk melihat lebih jauh bagaimana saya mengubah ide menjadi solusi nyata.</p>
+            </div>
         </div>
+
+        <div class="project-grid">
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="img/sertifikat pasar modal.png" alt="Certificate Project">
+                </div>
+                <div class="project-info">
+                    <h3>Certiface</h3>
+                    <p>HTML Certificate</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="img/team swichease.png" alt="Switcase Project">
+                </div>
+                <div class="project-info">
+                    <h3>Project Switcase</h3>
+                    <p>Digital marketing</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="img/serti marketing.png" alt="Marketing Class">
+                </div>
+                <div class="project-info">
+                    <h3>Peserta marketing class</h3>
+                    <p>Certificate</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="img/kasir sederhana.png" alt="Landing Page">
+                </div>
+                <div class="project-info">
+                    <h3>Pemograman Python</h3>
+                    <p>Aplikasi Kasir Sederhana</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="client-challenge">
+            <h2>SIMULASI BISNIS DIGITAL</h2>
+            <p>Proyek ini merupakan rancangan awal dari aplikasi mobile bernama EggChain, yang dirancang sebagai platform digital untuk memfasilitasi aktivitas jual beli hasil peternakan ayam petelur di Indonesia. Aplikasi ini ditujukan untuk membantu para peternak dalam mendistribusikan produknya secara lebih luas dan efisien, sekaligus memberikan kemudahan dalam pelacakan dan keamanan transaksi.</p>
+            <div class="case-image">
+                <img src="img/tugas kelompok 4 simulasi bisnis digital_analisis data populasi ayam petelur di indonesia.png" alt="Client Challenge Case Study">
+            </div>
+        </div>
+
+        <div class="flowchart">
+            <h2>WEB ANALYTHICS DASHBOARD</h2>
+            <p>Project ini merupakan pembuatan Dashboard Web Analitik yang menampilkan metrik penting dari performa sebuah website dalam jangka waktu harian dan 30 hari terakhir. Dashboard ini digunakan untuk memantau perilaku pengunjung website secara visual dan real-time, guna membantu pengambilan keputusan berbasis data.</p>
+            <div class="flowchart-image">
+                <img src="img/Screenshot (127).png" alt="Flowchart Diagram">
+            </div>
+        </div>
+
+        <div class="statistica">
+            <h2>DIGITAL MARKETING</h2>
+            <p>Project ini berfokus pada pembuatan dan pengelolaan konten TikTok untuk brand Switch Ease. Switch Ease adalah brand yang tampaknya bergerak di bidang teknologi rumah pintar (smart home), berdasarkan dari logo dan tema konten yang ditampilkan.</p>
+            <div class="statistica-image">
+                <img src="img/TIKTOK SWICTEASE.png" alt="Statistical Data and Analysis">
+            </div>
+        </div>
+
+        <div class="more-projects">
+            <h2>More cool <span class="highlight">projects</span></h2>
+            <div class="more-projects-grid">
+                <div class="more-project-item">
+                    <img src="img/Business Plan.png" alt="Bicycle Project">
+                    <div class="more-project-overlay">
+                        <a href="#" class="btn-small gradient-1">View</a>
+                        <a href="#" class="btn-small gradient-2">Details</a>
+                    </div>
+                </div>
+                <div class="more-project-item">
+                    <img src="img/Supply chain dashboard.png" alt="Watch Project">
+                </div>
+            </div>
+        </div>
+
     </section>
 
-    <section class="skills">
-        <h2>What I do.</h2>
-        <div class="skills-grid">
-            <div class="skill-icon">
-                <img src="img/png-transparent-figma-logo-brand-logos-brands-in-colors-icon-thumbnail-removebg-preview.svg" alt="Figma Design Tool">
-                <p>Figma</p>
-            </div>
-            <div class="skill-icon">
-                <img src="img/Microsoft_Excel-Logo.wine.svg" alt="Excel Design Tool">
-                <p>Excel</p>
-            </div>
-            <div class="skill-icon">
-                <img src="img/html.svg" alt="HTML logo design">
-                <p>HTML</p>
-            </div>
-            <div class="skill-icon">
-                <img src="img/css.svg" alt="css design tool">
-                <p>CSS</p>
-            </div>
-            <div class="skill-icon">
-                <img src="img/canva.webp" alt="Canva logo design">
-                <p>Canva</p>
+    <!-- ╔══════════════════════════════════════════╗
+         ║  SECTION 4 — SERVICES                    ║
+         ╚══════════════════════════════════════════╝ -->
+    <section id="services" class="onepage-section services-section">
+
+        <div class="section-divider"></div>
+
+        <div class="services-hero">
+            <div class="services-header">
+                <h1>Our <span class="highlight">Services</span></h1>
             </div>
         </div>
+
+        <div class="service-item">
+            <div class="service-content left">
+                <h2>Dashboard Design</h2>
+                <p>Dashboard Design Excell adalah layanan desain visual yang ditujukan untuk pembuatan dashboard interaktif dan informatif menggunakan Microsoft Excel. Layanan ini cocok digunakan untuk menyajikan data dengan cara yang lebih visual, rapi, dan mudah dipahami, baik untuk kebutuhan laporan bisnis, analisis data, monitoring performa, maupun keperluan presentasi profesional.</p>
+                <a href="https://wa.me/6282246715501" class="btn btn-gradient">HIRE ME</a>
+            </div>
+            <div class="service-image right">
+                <img src="img/WEB DESIGN/DASHBOARD DESIGN.svg" alt="Web Design Service">
+            </div>
+        </div>
+
+        <div class="service-item reverse">
+            <div class="service-content right">
+                <h2>Web Design</h2>
+                <p>Template Web Design adalah layanan pembuatan desain antarmuka website (UI) yang dirancang secara modern dan profesional. Layanan ini cocok bagi individu, UMKM, hingga perusahaan yang ingin memiliki tampilan website menarik tanpa harus merancang dari nol. Template dapat digunakan untuk berbagai kebutuhan seperti landing page, toko online, portofolio pribadi, blog, hingga website bisnis.</p>
+                <a href="https://wa.me/6282246715501" class="btn btn-gradient">HIRE ME</a>
+            </div>
+            <div class="service-image left">
+                <img src="img/WEB DESIGN/webdesignimage.svg" alt="Graphic Design Service">
+            </div>
+        </div>
+
+        <div class="service-item">
+            <div class="service-content left">
+                <h2>UI/UX Design</h2>
+                <p>UI/UX Design adalah layanan perancangan tampilan antarmuka pengguna (User Interface) dan pengalaman pengguna (User Experience) yang fokus pada bagaimana suatu aplikasi atau website tampil dan berinteraksi dengan pengguna. Layanan ini bertujuan untuk menciptakan desain yang tidak hanya menarik secara visual, tetapi juga mudah digunakan dan intuitif.</p>
+                <a href="https://wa.me/6282246715501" class="btn btn-gradient">HIRE ME</a>
+            </div>
+            <div class="service-image right">
+                <img src="img/WEB DESIGN/uiuxdesign.svg" alt="UI/UX Design Service">
+            </div>
+        </div>
+
     </section>
 
-    <section class="animate__animated">
-        <h2>See the impact of good, conversion-oriented design on your business.</h2>
-        <a href="contact.html" class="btn btn-arrow">Let's Work Together <i class="fas fa-arrow-right"></i></a>
+    <!-- ╔══════════════════════════════════════════╗
+         ║  SECTION 5 — BLOG                        ║
+         ╚══════════════════════════════════════════╝ -->
+    <section id="blog" class="onepage-section blog-section">
+
+        <div class="section-divider"></div>
+
+        <div class="blog-hero">
+            <div class="blog-hero-content">
+                <h1>Blogs &amp; articles<br>for <span class="highlight-pink">business</span> <span class="highlight-orange">growth</span></h1>
+            </div>
+        </div>
+
+        <div class="featured-articles">
+            <div class="article-grid">
+                <div class="article-card">
+                    <div class="article-image">
+                        <img src="img/scamper blog).png" alt="SCAMMPER Bisnis Pertanian">
+                        <div class="article-tag">TEKNIK SCAMMPER</div>
+                    </div>
+                    <div class="article-content">
+                        <div class="article-categories">
+                            <span class="category dark">UMKM</span>
+                            <span class="category green">Agriculture</span>
+                        </div>
+                        <h3 class="article-title">Analisis SCAMPER Bisnis Pertanian</h3>
+                        <div class="article-author">
+                            <p>By Muh Ashif</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="article-card">
+                    <div class="article-image">
+                        <img src="img/Desain Produk Blog.png" alt="Desain Produk">
+                    </div>
+                    <div class="article-content">
+                        <div class="article-categories">
+                            <span class="category dark">Popular</span>
+                            <span class="category blue">Web Design</span>
+                        </div>
+                        <h3 class="article-title">Desain Produk</h3>
+                        <div class="article-author">
+                            <p>By Muh Ashif</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="skills-banner">
+            <div class="skill-item"><i class="fas fa-pencil-alt"></i> Design</div>
+            <div class="skill-item"><i class="fas fa-code"></i> Develop</div>
+            <div class="skill-item"><i class="fas fa-search"></i> Discover</div>
+            <div class="skill-item"><i class="fas fa-pencil-alt"></i> Design</div>
+            <div class="skill-item"><i class="fas fa-code"></i> Develop</div>
+            <div class="skill-item"><i class="fas fa-search"></i> Discover</div>
+        </div>
+
+        <div class="recent-insights">
+            <h2>Recent <span class="highlight-orange">insights</span></h2>
+
+            <div class="filter-categories">
+                <button class="filter-btn active">All Posts</button>
+                <button class="filter-btn">Design</button>
+                <button class="filter-btn">Technology</button>
+                <button class="filter-btn">Workflow</button>
+            </div>
+
+            <div class="blog-list">
+                <div class="blog-item">
+                    <div class="blog-image">
+                        <img src="img/bmc.png" alt="Business Model Canvas">
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-categories">
+                            <span class="category dark">UMKM</span>
+                            <span class="category blue">Web Design</span>
+                        </div>
+                        <h3 class="blog-title">Business Model Canvas (BMC)</h3>
+                        <div class="blog-author">
+                            <p>Muh Ashif</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blog-item">
+                    <div class="blog-image">
+                        <img src="img/uts.png" alt="UTS Digital Marketing">
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-categories">
+                            <span class="category dark">UMKM</span>
+                            <span class="category blue">Web Design</span>
+                        </div>
+                        <h3 class="blog-title">UTS Digital Marketing</h3>
+                        <div class="blog-author">
+                            <p>By Muh Ashif</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blog-item">
+                    <div class="blog-image">
+                        <img src="img/iklan.png" alt="Apa itu Iklan">
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-categories">
+                            <span class="category dark">UMKM</span>
+                            <span class="category blue">Web Design</span>
+                        </div>
+                        <h3 class="blog-title">Apa itu Iklan!! adalah Terbaik &amp; Terburuk.. Simak penjelasan berikut!!</h3>
+                        <div class="blog-author">
+                            <p>By Muh Ashif</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blog-item">
+                    <div class="blog-image">
+                        <img src="img/policy konflik.png" alt="Policy conflict">
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-categories">
+                            <span class="category dark">UMKM</span>
+                            <span class="category purple">Ekonomi</span>
+                        </div>
+                        <h3 class="blog-title">Policy conflict - Ekonomi Makro</h3>
+                        <div class="blog-author">
+                            <p>By Muh Ashif</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blog-item">
+                    <div class="blog-image">
+                        <img src="img/makro equeblirium.png" alt="Makro equelibrium">
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-categories">
+                            <span class="category dark">UMKM</span>
+                            <span class="category blue">Web Design</span>
+                        </div>
+                        <h3 class="blog-title">Makro equelibrium</h3>
+                        <div class="blog-author">
+                            <p>By Muh Ashif</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta" style="padding:70px 5%; text-align:left; max-width:1200px; margin:0 auto;">
+            <h2 style="font-size:2.2rem; margin-bottom:30px; max-width:700px;">See the impact of good,<br>conversion-oriented<br>design on your business.</h2>
+            <a href="#contact" class="cta-link">Let's Work Together <i class="fas fa-arrow-right"></i></a>
+        </div>
+
     </section>
 
+    <!-- ╔══════════════════════════════════════════╗
+         ║  SECTION 6 — CONTACT                     ║
+         ╚══════════════════════════════════════════╝ -->
+    <section id="contact" class="onepage-section contact-section-wrapper">
+
+        <div class="section-divider"></div>
+
+        <div class="contact-section">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h1><span class="highlight-pink">Contact</span> <span class="highlight-orange">Me</span></h1>
+                    <p>Punya proyek yang ingin diwujudkan? Mari berkolaborasi! Hubungi saya melalui formulir di bawah ini, dan saya akan merespons dalam 48 jam.</p>
+
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon email-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <p>devashif.md@gmail.com</p>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon phone-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <p>+62-822-4671-5501</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <form action="#" method="POST">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Your E-mail</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" id="email" name="email" placeholder="Enter your e-mail" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="budget">Your Subject</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-euro-sign"></i>
+                                <input type="text" id="budget" name="Pesan" placeholder="Enter Your title" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Massages</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-gradient">SUBMIT</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-section">
+            <div class="faq-container">
+                <h2><span class="primary-text">Frequently Asked</span><br><span class="secondary-text">Questions</span></h2>
+                <p>Answers to the burning questions in your mind.</p>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How long does a website take to build?</h3>
+                            <div class="faq-toggle">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>The timeline for website development varies based on complexity. A simple website might take 2-4 weeks, while more complex projects can take 2-3 months or more.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How much does a website cost?</h3>
+                            <div class="faq-toggle">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Website costs vary widely based on requirements, features, and complexity. Basic websites start from $1,000, while custom solutions with advanced functionality can range from $5,000 to $20,000+.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>I don't have a design, can you build it for me?</h3>
+                            <div class="faq-toggle">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Absolutely! I offer complete design services and can create a custom design that matches your brand and objectives. We'll work together to ensure it meets your expectations.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Do you provide seo as well?</h3>
+                            <div class="faq-toggle">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, I provide SEO services to help your website rank better in search results. This includes on-page optimization, keyword research, content strategy, and technical SEO improvements.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Will my website load quickly?</h3>
+                            <div class="faq-toggle">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, I prioritize performance optimization in all my projects. I use modern techniques like code splitting, image optimization, and efficient caching to ensure your website loads quickly on all devices.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- ========== FOOTER ========== -->
     <footer>
         <div class="footer-top">
             <div class="logo">
                 <img src="Black Modern Minimalist Letter A Logo.png" alt="Ashif Logo">
             </div>
             <div class="footer-links">
-                <a href="index.html">Home</a>
-                <a href="about.html">About Us</a>
-                <a href="contact.html">Contact</a>
+                <a href="#home">Home</a>
+                <a href="#about">About Us</a>
+                <a href="#contact">Contact</a>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>© Designed by Muh Ashif</p>
+            <p>&copy; Designed by Muh Ashif</p>
             <div class="social-icons">
                 <a href="https://www.linkedin.com/in/muh-ashif-1b730a361/" ><i class="fab fa-linkedin" aria-label="logo linkedin" ></i></a>
                 <a href="https://x.com/Muh_Ashif13?t=6SU6s9K-NtU6wE1NRkJeqQ&s=09"><i class="fab fa-twitter" aria-label="link logo twiter"></i></a>
@@ -181,8 +758,8 @@
             </div>
         </div>
     </footer>
-    <script src="navigation.js"></script>
-    <script src="header-fix.js"></script>
-    <script src="animations.js"></script>
+
+    <!-- Unified JS -->
+    <script src="main.js"></script>
 </body>
 </html>
